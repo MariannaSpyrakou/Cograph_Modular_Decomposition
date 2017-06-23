@@ -16,8 +16,10 @@ Test case: co-tree
  inserted node: x
  x neigbors: a,d,e,f
        
-Trees
+       
+       
+Trees.py
 contains:
   -- Tree constructor
   -- Function: is_cograph() 
-      checks if the graph is a cograph and if yes it calls 
+      checks if the graph is a cograph and if yes it calls the function update_cotree that adds x to the co-tree.
