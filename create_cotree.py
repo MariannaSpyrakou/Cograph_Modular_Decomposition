@@ -1,5 +1,8 @@
 from Trees import Tree
 
+# function create_cotree(g)
+# computes the cotree of the given graph g and prints it (postorder) 
+
 def create_cotree(g):
 	cotree=Tree('1')
 	i=0
