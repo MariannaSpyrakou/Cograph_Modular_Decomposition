@@ -36,8 +36,8 @@ class Tree(object):
     #             4: empty, 
     #             5: insertion node
 
-    # node.name: 1: series
-    #            0:parallel
+    # node.name: '1': series
+    #            '0':parallel
     #            nodes name if it is leaf 
 
     def is_cograph(tree,x,S,flag_mixed):
