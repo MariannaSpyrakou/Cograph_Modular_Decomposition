@@ -2,13 +2,13 @@ Modular Decomposition of co-graphs
 
 example_1.py
 
-input: the below cotree 
-output: the updated cotree when adding node x, adjacent to a,d,e,f
+  input: the below cotree 
+  output: the updated cotree when adding node x, adjacent to a,d,e,f
 
                       (1)                                        (1)
                       /   \                                     /   \
-                   (0)    (0)                                (0)     (0)
-                   / \    / | \                              / \    / | \
+                   (0)    (0)              -->               (0)     (0)
+                   / \    / | \          output:             / \    / | \
                  (1)  c   d  e  f                         (1)   c  d  e  f 
                  / \                                      / \
                 a   b                                    a  (0)
@@ -17,11 +17,11 @@ output: the updated cotree when adding node x, adjacent to a,d,e,f
                                                            
 
 main_example.py
---full construction of the above cotree, given the initial cograph
+  --full construction of the above cotree, given the initial cograph
 
 
 create_cotree.py
--- Function that given a cograph, computes its cotree by adding one-by-one its vertices
+  -- Function that given a cograph, computes its cotree by adding one-by-one its vertices
 
 
 Trees.py
