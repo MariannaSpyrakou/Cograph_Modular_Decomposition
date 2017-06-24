@@ -4,7 +4,6 @@ def create_cotree(g):
 	cotree=Tree('1')
 	i=0
 	for node in g:
-		print node
 		if i==0:
 			first_node=node
 		elif i==1:
