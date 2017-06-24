@@ -3,6 +3,7 @@ Modular Decomposition of co-graphs
 example_1.py
 
   input: the below cotree 
+  
   output: the updated cotree when adding node x, adjacent to a,d,e,f
 
                        (1)                                       (1)
