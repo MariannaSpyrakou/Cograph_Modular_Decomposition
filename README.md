@@ -30,6 +30,7 @@ contains:
   -- Tree constructor
   
   -- Function: is_cograph() 
+  
       recursive function that checks if the graph is a cograph. If so, it calls the function update_cotree 
       
       input parameters: -- tree: the existing cotree
@@ -40,6 +41,7 @@ contains:
                                         2 (if it is not a co-graph)
                                         
   -- Function: update_cotree()
+  
       adds node x to the existing co-tree 
       
       input parameters: -- tree: the existing cotree
@@ -49,4 +51,5 @@ contains:
                         -- sum_non_adj: # of children of tree that are non adjacent to x
 
 -- Function: print_tree()
+
     prints tree nodes in postorder traversal
