@@ -79,10 +79,10 @@ class Tree(object):
 			tree.info = 2
 		elif sum_non_adj>0:
 			tree.info = 4	
-	if tree.name==1 and tree.info==3 and sum_non_adj>0:
+	if tree.name=='1' and tree.info==3 and sum_non_adj>0:
 		flag_mixed[0]=2
 		return
-	if tree.name==0 and tree.info==3 and sum_adj>0:
+	if tree.name=='0' and tree.info==3 and sum_adj>0:
 		flag_mixed[0]=2
 		return
 	if tree.info==5:
@@ -160,7 +160,7 @@ class Tree(object):
 			# G is connected but G is disconnected
 			i=0
 			t2=Tree('1')
-			t1=Tree('0',[t2,Tree('x')])
+			t1=Tree('0',[t2,Tree(x)])
 			Tree.add_child(tree,t1)
 			for child in tree.children:
 				tree.children[i]=None
