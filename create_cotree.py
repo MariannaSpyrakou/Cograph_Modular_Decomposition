@@ -24,9 +24,8 @@ def create_cotree(g):
 				return
 			Tree.make_info_None(cotree)
 		i=i+1
-		print "Begin cotree"
-		Tree.print_tree(cotree)
-		print "end cotree"
+	
+	Tree.print_tree(cotree)
 	return
 
 
@@ -35,5 +34,4 @@ d = {'a': ['b','d','e','f','x'],
          'd': ['a','b','c','x'], 'e': ['a','b','c','x'],
          'f': ['a','b','c','x'] , 'x': ['f','a','d','e']
          }
-#print d['a'].count('c')
 create_cotree(d)
