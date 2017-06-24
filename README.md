@@ -2,9 +2,9 @@ Modular Decomposition of co-graphs
 
 example_1.py
 
-    input: the below cotree 
+    input: the below co-tree 
   
-    output: the updated cotree when adding node x, adjacent to a,d,e,f
+    output: the updated co-tree when adding node x, adjacent to a,d,e,f
     
 
                        (1)                                       (1)
@@ -20,12 +20,12 @@ example_1.py
 
 main_example.py
 
-      --full construction of the above cotree, given the initial cograph
+      --full construction of the above co-tree, given the initial cograph
 
 
 create_cotree.py
 
-      -- Function that given a cograph, computes its cotree by adding one-by-one its vertices
+      -- Function that given a co-graph, computes its co-tree by adding one-by-one its vertices
 
 
 Trees.py
@@ -38,7 +38,7 @@ Trees.py
   
       recursive function that checks if the graph is a cograph. If so, it calls the function update_cotree 
       
-      input parameters: -- tree: the existing cotree
+      input parameters: -- tree: the existing co-tree
                         -- x : inserting node
                         -- S : set of adjacent nodes of x
                         -- flag_mixed : initially 0 (there are no mixed nodes)
@@ -49,7 +49,7 @@ Trees.py
   
       adds node x to the existing co-tree 
       
-      input parameters: -- tree: the existing cotree
+      input parameters: -- tree: the existing co-tree
                         -- x : inserting node
                         -- S : set of adjacent nodes of x
                         -- sum_adj : # of children of tree that are adjacent to x
