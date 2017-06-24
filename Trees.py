@@ -1,6 +1,5 @@
-
-
 class Tree(object):
+    "Generic tree node."
     def __init__(self, name='root', children=None):
         self.name = name
         self.children = []
@@ -24,25 +23,23 @@ class Tree(object):
 		Tree.make_info_None(child)
 	tree.info=None
 
-    #def replace(self,my_child)
-	#for child in children:
-	#	if child.name==my_child:
-			
-
     # is_cograph: function that ckecks if (G+x) is a cograph
     # input: tree, x: inserting node, S: set of adjacent nodes of x, flag_mixed: 
     # flag_mixed= 0: no mixed nodes, 
     #             1: at least one mixed node 
     #             2: not a co-graph 
-    # node.info = None,0: non adjancent, 
+
+    # node.info = None: non adjancent, 
     #             1: adjancent, 
     #             2: adjancent, 
     #             3: mixed, 
     #             4: empty, 
     #             5: insertion node
+
     # node.name: 1: series
     #            0:parallel
-    #            'a' 
+    #            nodes name if it is leaf 
+
     def is_cograph(tree,x,S,flag_mixed):
     	if tree == None: return
 	for child in tree.children:
@@ -88,19 +85,21 @@ class Tree(object):
 	if tree.name==0 and tree.info==3 and sum_adj>0:
 		flag_mixed[0]=2
 		return
-	#print tree.name
-	#print tree.info
 	if tree.info==5:
-		#print sum_adj
-		#print sum_non_adj
 		Tree.update_cotree(tree,x,S,sum_adj,sum_non_adj)
     	
-	#print flag_mixed[0]
 
-#function that updates the cotree and inserts node x
+
+# function that updates the cotree and inserts node x
+
+# input: tree: existing cotree
+#	 x : node to add in the cotree
+#	 S : set of adjacent nodes of x
+# 	 sum_adj : # of children of tree adjacent to x
+#	 sum_non_adj : # of children of tree non adjacent to x
     def update_cotree(tree,x,S,sum_adj,sum_non_adj):
 	if tree.info==5:
-		if tree.name==0:
+		if tree.name=='0':
 			# parallel node
 			if sum_adj==1:
 				# one adjacent node 
@@ -108,17 +107,17 @@ class Tree(object):
 				for child in tree.children:
 					if child.info==1:
 						this_child=child
-						tree.children[i]=Tree('1',[this_child,Tree('x')])
+						tree.children[i]=Tree('1',[this_child,Tree(x)])
 						break
 					if child.info==2:
-						Tree.add_child(child,Tree('x'))
+						Tree.add_child(child,Tree(x))
 						break
 					i=i+1
 
 			else:
 				#more than one adjacent node
 				t1=Tree('0')
-				Tree.add_child(tree,Tree('1',[t1,Tree('x')]))
+				Tree.add_child(tree,Tree('1',[t1,Tree(x)]))
 				i=0
 				for child in tree.children:
 					if child.info==1 or child.info==2:
@@ -126,26 +125,24 @@ class Tree(object):
 						Tree.add_child(t1,child)
 					i=i+1			
 		else:
-			# tree.name==1			
+			# tree.name=='1'			
 			# series node check the cases
 			if sum_non_adj==1:
 				#one non adjacent node
 				i=0
 				for child in tree.children:
 					if child.info==None:
-						#print "Found a child!"
 						this_child=child
-						tree.children[i] = Tree('0',[this_child,Tree('x')])
-						#Tree.print_tree(tree)
+						tree.children[i] = Tree('0',[this_child,Tree(x)])
 						break
 					if child.info==4:
-						Tree.add_child(child,Tree('x'))
+						Tree.add_child(child,Tree(x))
 						break
 					i=i+1
 			else:
 				#more than one non adjacent node
 				t1=Tree('1')
-				Tree.add_child(tree,Tree('0',[t1,Tree('x')]))
+				Tree.add_child(tree,Tree('0',[t1,Tree(x)]))
 				i=0
 				for child in tree.children:
 					if child.info== None or child.info==4:
@@ -153,12 +150,12 @@ class Tree(object):
 						Tree.add_child(t1,child)
 	elif tree.info==2:
 		# x is connected to all vertices of G
-		Tree.add_child(tree,Tree('x'))
+		Tree.add_child(tree,Tree(x))
 	elif tree.info==4: 
 		# tree has empty label
 		if tree.children[1]==None:
 			# G is disconnected
-			Tree.add_child(tree.children[0],Tree('x'))
+			Tree.add_child(tree.children[0],Tree(x))
 		else:
 			# G is connected but G is disconnected
 			i=0
@@ -171,11 +168,12 @@ class Tree(object):
 				i=i+1
 	return	
 
+# print_tree: function that traverses the tree in postorder and prints it
+
     def print_tree(tree):			
 	if tree == None: return
 	for child in tree.children:
     		Tree.print_tree(child)				
 	print tree.name
-
 
 
