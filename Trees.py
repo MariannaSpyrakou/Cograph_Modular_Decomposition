@@ -36,8 +36,8 @@ class Tree(object):
     #             4: empty, 
     #             5: insertion node
 
-    # node.name: '1': series
-    #            '0':parallel
+    # node.name: 1: series
+    #            0:parallel
     #            nodes name if it is leaf 
 
     def is_cograph(tree,x,S,flag_mixed):
@@ -50,43 +50,63 @@ class Tree(object):
 	sum_non_adj=0
 	for child in tree.children:
 		if child.info == 3 or child.info==5:
+			# tree has a mixed child
 			tree.info = 3
 		elif child.info == 1 or child.info == 2:
+			# tree has an adjacent child
 			if sum_non_adj>0:
+				# tree has non adjacent child/children too
 				if flag_mixed[0]==0:
+					# the first mixed node
 					tree.info = 5
 					flag_mixed[0]=1
 					sum_adj=sum_adj+1
 				elif flag_mixed[0]==1:
+					#not possible to be the second node that has both adjacent and non adjacent children
+					#not a co-tree
 					tree.info =3
 					flag_mixed[0]=2
 					return
 			else:
+				# count the number of adjacent nodes
 				sum_adj=sum_adj+1
 		elif child.info == None or child.info == 4:
+			# tree has a non adjacent child
 			if sum_adj>0:
+				# tree has adjacent child/children too
 				if flag_mixed[0]==0:
+					# the first mixed node
 					tree.info=5
 					flag_mixed[0]=1
 					sum_non_adj=sum_non_adj+1
 				elif flag_mixed[0]==1:
+					#not possible to be the second node that has both adjacent and non adjacent children
+					#not a co-tree
 					flag_mixed[0]=2
 					return
 			else:
+				# count the number of non-adjacent nodes
 				sum_non_adj=sum_non_adj+1
 	if tree.info == None:
 		if sum_adj>0:
+			# no mixed nodes, only adjacent nodes
+			# tree --> adjacent node
 			tree.info = 2
 		elif sum_non_adj>0:
+			# no mixed nodes, only non-adjacent nodes
+			# tree --> empty node
 			tree.info = 4	
 	if tree.name=='1' and tree.info==3 and sum_non_adj>0:
+		#not a co-tree case
 		flag_mixed[0]=2
 		return
 	if tree.name=='0' and tree.info==3 and sum_adj>0:
+		# not a co-tree case
 		flag_mixed[0]=2
 		return
 	if tree.info==5:
 		Tree.update_cotree(tree,x,S,sum_adj,sum_non_adj)
+		# If tree it is the first mixed node, then update that part of the co-tree by adding x
     	
 
 
@@ -97,6 +117,7 @@ class Tree(object):
 #	 S : set of adjacent nodes of x
 # 	 sum_adj : # of children of tree adjacent to x
 #	 sum_non_adj : # of children of tree non adjacent to x
+
     def update_cotree(tree,x,S,sum_adj,sum_non_adj):
 	if tree.info==5:
 		if tree.name=='0':
@@ -126,9 +147,9 @@ class Tree(object):
 					i=i+1			
 		else:
 			# tree.name=='1'			
-			# series node check the cases
+			# series node
 			if sum_non_adj==1:
-				#one non adjacent node
+				# one non adjacent node
 				i=0
 				for child in tree.children:
 					if child.info==None:
@@ -140,7 +161,7 @@ class Tree(object):
 						break
 					i=i+1
 			else:
-				#more than one non adjacent node
+				# more than one non adjacent node
 				t1=Tree('1')
 				Tree.add_child(tree,Tree('0',[t1,Tree(x)]))
 				i=0
@@ -175,5 +196,3 @@ class Tree(object):
 	for child in tree.children:
     		Tree.print_tree(child)				
 	print tree.name
-
-
