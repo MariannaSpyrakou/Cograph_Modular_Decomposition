@@ -35,3 +35,6 @@ contains:
                         -- S : set of adjacent nodes of x
                         -- sum_adj : # of children of tree that are adjacent to x
                         -- sum_non_adj: # of children of tree that are non adjacent to x
+
+-- Function: print_tree()
+    prints tree nodes in postorder traversal
