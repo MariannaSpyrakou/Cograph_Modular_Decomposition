@@ -1,3 +1,4 @@
+from sage.all import Graph
 from create_cotree import create_cotree
 
 d = {'a': ['b','d','e','f','x'],
@@ -5,4 +6,5 @@ d = {'a': ['b','d','e','f','x'],
          'd': ['a','b','c','x'], 'e': ['a','b','c','x'],
          'f': ['a','b','c','x'] , 'x': ['f','a','d','e']
          }
-create_cotree(d)
+g=graph(d)
+create_cotree(g)
