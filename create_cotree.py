@@ -3,11 +3,11 @@ from Trees import Tree
 # create_cotree: function that computes the cotree of a given graph
 
 # two input options:
-# --- sage graph / python dictionary, with the nodes and ALL their neighbors
-# --- a list containing the names of the nodes and a nested list containing the "eliminated" neighbors of the nodes,
+# --- 1. sage graph / python dictionary, with the nodes and ALL their neighbors
+# --- 2. a list containing the names of the nodes and a nested list containing the "eliminated" neighbors of the nodes,
 #     meaning that a node can have as neigbors only the nodes that precede in the given order.
 
-def create_cotree(g):
+def create_cotree_1(g):
 	cotree=Tree('1')
 	# the root of the tree is always '1'
 	i=0
@@ -39,7 +39,7 @@ def create_cotree(g):
 	Tree.print_tree(cotree)
 	return
 
-def create_cotree(name,neighbors):
+def create_cotree_2(name,neighbors):
 	cotree=Tree('1')
 	# the root of the tree is always '1'
 	for i in range(len(name)):
