@@ -1,5 +1,12 @@
 from Trees import Tree
 
+# create_cotree: function that computes the cotree of a given graph
+
+# two input options:
+# --- sage graph / python dictionary, with the nodes and ALL their neighbors
+# --- a list containing the names of the nodes and a nested list containing the "eliminated" neighbors of the nodes,
+#     meaning that a node can have as neigbors only the nodes that precede in the given order.
+
 def create_cotree(g):
 	cotree=Tree('1')
 	# the root of the tree is always '1'
