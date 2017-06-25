@@ -10,6 +10,7 @@ d = {'a': ['b','d','e','f','x'],
 g=Graph(d)
 create_cotree_1(g)
 
+print (" ")
 
 # input option 2:
 names =['a','b','c','d','e','f','x'] 
