@@ -20,7 +20,7 @@ example_1.py
 
 main_example.py
 
-      --full construction of the above co-tree, given the initial cograph (in two representations: 1)sage graph 2)nested list)
+      --full construction of the above co-tree, given the initial cograph (in two representations: 1.sage graph 2.nested list)
 
 
 create_cotree.py
