@@ -65,10 +65,13 @@ class Tree(object):
 						flag_mixed[0]=1
 						sum_adj=sum_adj+1
 					elif flag_mixed[0]==1:
-						#not possible to be the second node that has both adjacent and non adjacent children
-						tree.info =3
-						flag_mixed[0]=2
-						return
+						if tree.info==5:
+							sum_adj=sum_adj+1
+						else:
+							#not possible to be the second node that has both adjacent and non adjacent children
+							tree.info =3
+							flag_mixed[0]=2
+							return
 				else:
 					# count the number of adjacent nodes
 					sum_adj=sum_adj+1
@@ -82,9 +85,12 @@ class Tree(object):
 						flag_mixed[0]=1
 						sum_non_adj=sum_non_adj+1
 					elif flag_mixed[0]==1:
-						#not possible to be the second node that has both adjacent and non adjacent children
-						flag_mixed[0]=2
-						return
+						if tree.info==5:
+							sum_non_adj=sum_non_adj+1
+						else:
+							#not possible to be the second node that has both adjacent and non adjacent children
+							flag_mixed[0]=2
+							return
 				else:
 					# count the number of non-adjacent nodes
 					sum_non_adj=sum_non_adj+1
