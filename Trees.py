@@ -165,13 +165,14 @@ class Tree(object):
 			else:
 				# more than one non adjacent node
 				t1=Tree('1')
-				Tree.add_child(tree,Tree('0',[t1,Tree(x)]))
 				i=0
 				for child in tree.children:
 					if child!=None:
 						if child.info== None or child.info==4:
 							tree.children[i]=None
 							Tree.add_child(t1,child)
+					i=i+1
+				Tree.add_child(tree,Tree('0',[t1,Tree(x)]))
 	elif tree.info==2:
 		# x is connected to all vertices of G
 		Tree.add_child(tree,Tree(x))
