@@ -1,5 +1,5 @@
 from sage.all import Graph
-from create_cotree import create_cotree
+from create_cotree import create_cotree_1, create_cotree_2
 
 # input option 1:
 d = {'a': ['b','d','e','f','x'],
@@ -8,11 +8,11 @@ d = {'a': ['b','d','e','f','x'],
          'f': ['a','b','c','x'] , 'x': ['f','a','d','e']
          }
 g=Graph(d)
-create_cotree(g)
+create_cotree_1(g)
 
 
 # input option 2:
 names =['a','b','c','d','e','f','x'] 
 neighbors = [[],['a'] ,[],  ['a','b','c'], ['a','b','c'], ['a','b','c'] , ['f','a','d','e']]
 
-create_cotree(names,neighbors)
+create_cotree_2(names,neighbors)
