@@ -26,6 +26,11 @@ main_example.py
 create_cotree.py
 
       -- Function that given a co-graph, computes its co-tree by adding one-by-one its vertices
+      -- Input options:
+      
+            1) A sage graph / python dictionary with nodes and ALL of them neighbors
+            2) A list with the nodes and a nested list with their "eliminated neigbors", meaning that a node can have as neighbors         
+               only the nodes that are adjacent and precede in the given order (see main example)
 
 
 Trees.py
