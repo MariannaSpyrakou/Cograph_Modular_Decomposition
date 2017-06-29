@@ -16,7 +16,7 @@ def create_cotree_1(g):
 			first_node=node
 			i=i+1
 		elif i==1:
-			if g[node].count(first_node):
+			if g.has_edge(node,first_node):
 				# first and second node are adjacent
 				Tree.add_child(cotree,Tree(first_node))
 				Tree.add_child(cotree,Tree(node))
@@ -44,7 +44,7 @@ def create_cotree_2(name,neighbors):
 	# the root of the tree is always '1'
 	for i in range(len(name)):
 		if i==1:
-			if neighbors[1].count(name[0]):
+			if name[0] in neighbors[1]:
 				# first and second node are adjacent
 				Tree.add_child(cotree,Tree(name[0]))
 				Tree.add_child(cotree,Tree(name[1]))
