@@ -1,3 +1,4 @@
+from __future__ import print_function
 class Tree(object):
     "Generic tree node."
     def __init__(self, name='root', children=None):
@@ -22,6 +23,7 @@ class Tree(object):
 		if child!=None:
 			child.reset_info()
 	self.info = None
+	return
 
     # is_cograph: function that ckecks if (G+x) is a cograph
     # input: tree, x: inserting node, S: set of adjacent nodes of x, flag_mixed: 
@@ -197,10 +199,26 @@ class Tree(object):
 			self.add_child(t1)
 	return	
 
-# print_tree: function that traverses the tree in postorder and prints it
+# print_tree: for every node its subtree is inside brackets [ ]
+def print_tree(self):
+	if self.name=='1' or self.name=='0':
+		print ('[',self.name,' ',sep='', end='')
+	else:
+		print ('(',self.name,sep='', end='')		
+	for child in self.children:
+		if child!=None:
+    			child.print_tree()	
+	if self.name=='1' or self.name=='0':
+		print ('],',end=' ')
+	else:	
+		print (')',end=' ')			
+	return
 
-    def print_tree(self):			
+# print_tree_postorder: function that traverses the tree in postorder and prints it
+
+    def print_tree_postorder(self):			
 	for child in self.children:
 		if child!=None:
     			child.print_tree()				
 	print (self.name)
+	return
