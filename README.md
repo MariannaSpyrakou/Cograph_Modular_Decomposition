@@ -31,6 +31,9 @@ create_cotree.py
             1) A sage graph / python dictionary with nodes and ALL their neighbors
             2) A list with the nodes and a nested list with their "eliminated neighbors", meaning that a node can have as 
                neighbors only the nodes that are adjacent and precede in the given order (see main example)
+               
+       -- Functions: has_no_p4_path() and has_no_p4_path_2()
+            check if in any subgraph of 4 vertices there is a path. If so, the graph is not a co-graph, otherwise it is a cograph. 
 
 
 Trees.py
