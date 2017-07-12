@@ -1,4 +1,5 @@
 from Trees import Tree
+from sage.all import Graph
 import itertools
 
 # create_cotree: function that computes the cotree of a given graph
@@ -119,3 +120,211 @@ def has_no_p4_path_2(g):
 					return False
 	print (" ")
 	return True
+
+# given a partition a (of number n) find the partition immediately next to a
+def next_partition(a):
+	k=len(a)
+	n=0
+	for i in range(k):
+		n=n+a[i]
+	if a[0] != (n//2):
+		if a[k-1]-a[k-2]<=1:
+			b=[]
+			for i in range(0,k-2):
+				b.append(a[i])
+				#print b
+			b.append(a[k-2]+a[k-1])
+			return b
+		else: 	
+			a[k-2]=a[k-2]+1
+			a[k-1]=a[k-1]-1
+			q=a[k-1]//a[k-2]
+			r=a[k-1]%a[k-2]
+			if q>1:
+				b=[]
+				for i in range(0,k-2):
+					b.append(a[i])
+				for i in range(0,q):
+					b.append(a[k-2])
+				b.append(a[k-2]+r)
+				return b
+			else:
+				return a
+	else:
+		if n!=3:
+			return None
+		else:
+			if a[1]==n//2+n%2:
+				return None
+			else:
+				return [1,2]
+
+
+def rebuild_node(u,a):
+	k=len(a)
+	# replace the children of u with the partition a	
+	if k<len(u.children): # General case, when function cograph_generator is used
+		for i in range(len(u.children)):
+			# add the i-th child of u
+			if i<k:
+				u.children[i]=Tree(a[i])
+				u.children[i].parent=u
+				if a[i]>1: # if i not a leaf, its children should be leaves 
+					this_child=u.children[i] 
+					for j in range(a[i]):
+						this_child.add_child(Tree(1))	
+			else:
+				u.children[i]=None
+	else: # used only when trying trees seperately from cograph_generator 
+		for i in range(k):
+			# add the i-th child of u
+			if i<len(u.children):
+				u.children[i]=Tree(a[i])
+				u.children[i].parent=u
+				if a[i]>1: # if i not a leaf, its children should be leaves 
+					this_child=u.children[i] 
+					for j in range(a[i]):
+						this_child.add_child(Tree(1))	
+			else:
+				u.add_child(Tree(a[i]))
+				u.children[i].parent=u
+				if a[i]>1: # if i not a leaf, its children should be leaves 
+					this_child=u.children[i] 
+					for j in range(a[i]):
+						this_child.add_child(Tree(1))
+	# return the tree
+	return 
+	
+
+def find_pivot(T,pivot):
+	for child in reversed(T.children):
+		if pivot==[] and child!=None:
+        		find_pivot(child,pivot)
+	# (Definition 9: pivot node)
+	# if node T is not a leaf, it does not induce a maximum partition 
+	# and it is the first such node in the inverse postorder traversal, 
+	# then it is the  PIVOT.
+ 
+	#partition=[]
+	#for i in T.children:
+		#if i!=None:
+			#partition.append(i.name)
+	i=T.name
+	if pivot==[] and T.name!=1 and ((i//2!=T.children[0].name) or ((i//2+i%2)!=T.children[1].name)): #next_partition(partition)!=None: 
+		pivot.append(T)
+		T.info='p'
+		#print ("pivot is:",T.name)
+	return 
+
+def next_tree(T):
+	pivot=[]
+	find_pivot(T,pivot)
+	if pivot!=[]: # If there is a pivot, then we can find the next tree
+		#print pivot[0]
+		partition=[]
+		for i in pivot[0].children:
+			if i!=None:
+				partition.append(i.name)
+		b=next_partition(partition) # finds the next partition induced by the subtree pivot[0]
+		rebuild_node(pivot[0],b) # changes the subtree "pivot[0]"
+		x=pivot[0]
+		while True:
+			if x.parent!=None:
+				ancestor=x.parent
+				#print ancestor.name
+				# modify the bigger siblings of node x
+				is_bigger_sibling=False
+				for y in range(len(ancestor.children)) : # y = all siblings of x
+					if ancestor.children[y]!=None:
+						this_child=ancestor.children[y]
+						if this_child.info=='p':
+							is_bigger_sibling=True
+						if is_bigger_sibling==True and this_child.info!='p': # true only for bigger siblings of x
+							if x.name==this_child.name: 
+								#print ("case 1")
+								ancestor.children[y]=x  #copy subtree T(x) in T(y)
+							else:
+								#print ("case 2")
+								c=[]
+								for i in range(ancestor.children[y].name):
+									c.append(1)
+								rebuild_node(ancestor.children[y],c)
+				# set x= parent of x 
+				x.info=None
+				x=ancestor
+				if x==None:
+					break
+				x.info='p' # the parent gets the pivot mark	
+			else: 
+				break
+		return True
+	else:  # If there is no pivot, then there isn't any other tree
+		return False
+		
+	
+
+
+# Input integer n
+# Output, all cographs with n nodes
+def cograph_generator(n):
+	if n>=2:
+		#print n
+		# Construct the minimum tree
+		T=Tree(n)
+		for j in range(n):
+			T.add_child(Tree(1))
+		i=1
+		flag=True
+		while flag:
+			## T corresponds to 2 cotrees: one with '0' root and one with '1' root
+			T.print_tree() # not suitable output, need to fix it
+			print (" ")
+			#print (" ")
+			#print(" ")
+			flag=next_tree(T) # Find the next tree. return False if there is no other Tree
+			if not flag:
+				break
+			#print(" ")
+			i=i+1
+		print ("The number of cotrees is: ",2*i)
+	else:
+		print ("Number of vertices must be >=2")
+	return
+
+	
+
+
+if __name__ == "__main__":
+# input option 1:
+	d = {'a': ['b','d','e','f','x'],
+     'b': ['a','f','e','d'],
+     'c': ['f','e','d'],
+     'd': ['a','b','c','x'],
+     'e': ['a','b','c','x'],
+     'f': ['a','b','c','x'] ,
+     'x': ['f','a','d','e']}
+	g=Graph(d)
+	#create_cotree_1(g)
+
+
+	print (" ")
+
+	# input option 2:
+	names =['a','b','c','d','e','f','x']
+	neighbors = [[],['a'] ,[],  ['a','b','c'], ['a','b','c'], ['a','b','c'] , ['f','a','d','e']]
+
+	#create_cotree_2(names,neighbors)
+	print (" ")
+
+	
+	#k=next_partition([1,1,1,1,1,1,1])
+	#print k
+	#i=1
+	#while k!=None:
+		#k=next_partition(k)
+		#print k
+		#i=i+1
+	#print i
+	print (" ")
+	cograph_generator(8)
+	
