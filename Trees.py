@@ -24,25 +24,27 @@ class Tree(object):
 			child.reset_info()
 	self.info = None
 	return
-
-    # is_cograph: function that ckecks if (G+x) is a cograph
-    # input: tree, x: inserting node, S: set of adjacent nodes of x, flag_mixed: 
-    # flag_mixed= 0: no mixed nodes, 
-    #             1: at least one mixed node 
-    #             2: not a co-graph 
-
-    # node.info = None: non adjancent, 
-    #             1: adjancent, 
-    #             2: adjancent, 
-    #             3: mixed, 
-    #             4: empty, 
-    #             5: insertion node
-
-    # node.name: 1: series
-    #            0:parallel
-    #            nodes name if it is leaf 
-
+   
+	
         def is_cograph(self,x,S,flag_mixed):
+	"""
+    	is_cograph: function that ckecks if (G+x) is a cograph
+     	input: tree, x: inserting node, S: set of adjacent nodes of x, flag_mixed: 
+     	flag_mixed= 0: no mixed nodes, 
+        	    1: at least one mixed node 
+               	    2: not a co-graph 
+
+     	node.info = None: non adjancent, 
+                    1: adjancent, 
+                    2: adjancent, 
+                    3: mixed, 
+                    4: empty, 
+                    5: insertion node
+
+     	node.name: 1: series
+                   0:parallel
+                   nodes name if it is leaf 
+    	"""
 	for child in self.children:
 		if child!=None:
     			child.is_cograph(x,S,flag_mixed)
@@ -117,15 +119,17 @@ class Tree(object):
     	
 
 
-# function that updates the cotree and inserts node x
-
-# input: tree: existing cotree
-#	 x : node to add in the cotree
-#	 S : set of adjacent nodes of x
-# 	 sum_adj : # of children of tree adjacent to x
-#	 sum_non_adj : # of children of tree non adjacent to x
-
     def update_cotree(self,x,S,sum_adj,sum_non_adj):
+	"""
+ 	function that updates the cotree and inserts node x
+
+ 	input: tree: existing cotree
+	 	x : node to add in the cotree
+	 	S : set of adjacent nodes of x
+	 	sum_adj : # of children of tree adjacent to x
+	 	sum_non_adj : # of children of tree non adjacent to x
+	"""	
+		
 	if self.info==5:
 		if self.name=='0':
 			# parallel node
@@ -199,8 +203,9 @@ class Tree(object):
 			self.add_child(t1)
 	return	
 
-# print_tree: for every node its subtree is inside brackets [ ]
+
 def print_tree(self):
+	" print_tree: for every node its subtree is inside brackets [ ]
 	if self.name=='1' or self.name=='0':
 		print ('[',self.name,' ',sep='', end='')
 	else:
@@ -214,9 +219,10 @@ def print_tree(self):
 		print (')',end=' ')			
 	return
 
-# print_tree_postorder: function that traverses the tree in postorder and prints it
 
-    def print_tree_postorder(self):			
+
+    def print_tree_postorder(self):
+	" print_tree_postorder: function that traverses the tree in postorder and prints it
 	for child in self.children:
 		if child!=None:
     			child.print_tree()				
