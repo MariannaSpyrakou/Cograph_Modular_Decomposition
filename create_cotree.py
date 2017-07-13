@@ -72,9 +72,10 @@ def create_cotree_2(name,neighbors):
 	return
 
 # function that checks by definition if the given graph is a co-graph
-# if there is an induced path on any subgraph with 4 vertices, then it is not a co-graph 
+# if there is an induced path on any subgraph with 4 vertices, then it is not a co-graph,
+# otherwise it is a co-graph
 def has_no_p4_path(g):
-	# find all the subgraphs of g with 4 vertices
+	# find all the subgraphs of g on 4 vertices
 	comb = list(itertools.combinations(g, 4))
 	for i in comb:
 		#print i
@@ -110,7 +111,7 @@ def has_no_p4_path(g):
 
 # An easier function to check if the graph is a cograph
 # A little bit more time consuming
-# Finds all subgraphs of g with 4 vertices and
+# Finds all subgraphs of g on 4 vertices and
 # checks all possible paths on the subgraph to see if there exists one  
 def has_no_p4_path_2(g):
 	comb = list(itertools.combinations(g, 4)) # Find all subgraphs with 4 vertices
@@ -126,6 +127,7 @@ def has_no_p4_path_2(g):
 					return False
 	print (" ")
 	return True
+
 
 # Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)
 
@@ -171,10 +173,13 @@ def next_partition(a):
 				return [1,2]
 
 
+# rebuild_node(u,a): given a node u of the ordered tree T and a partition a, 
+# the subtree T(u) is replaced by the partition a, that is induced by u.
 def rebuild_node(u,a):
 	k=len(a)
-	# replace the children of u with the partition a	
-	if k<len(u.children): # General case, when function cograph_generator is used
+	# replace the children of u with the partition a
+	# if k < number of existing children of the node, then we don't have to add children, just replace the 'existing' children.
+	if k<=len(u.children): # General case, when function cograph_generator is used
 		for i in range(len(u.children)):
 			# add the i-th child of u
 			if i<k:
@@ -184,9 +189,9 @@ def rebuild_node(u,a):
 					this_child=u.children[i] 
 					for j in range(a[i]):
 						this_child.add_child(Tree(1))	
-			else:
+			else: # If there are more "existing" children than we need set  
 				u.children[i]=None
-	else: # used only when trying trees seperately from cograph_generator 
+	else: # used only when transforming trees seperately from cograph_generator 
 		for i in range(k):
 			# add the i-th child of u
 			if i<len(u.children):
@@ -205,7 +210,9 @@ def rebuild_node(u,a):
 						this_child.add_child(Tree(1))
 	# return the tree
 	return 
-	
+
+# find_pivot(T,pivot): given a tree T and a list pivot it finds the pivot i.e. the first node in reverse postorder traversal
+# that does not induce a maximum partition. 
 
 def find_pivot(T,pivot):
 	for child in reversed(T.children):
@@ -215,13 +222,15 @@ def find_pivot(T,pivot):
 	# if node T is not a leaf, it does not induce a maximum partition 
 	# and it is the first such node in the inverse postorder traversal, 
 	# then it is the  PIVOT.
+	
+	# the maximum partition of u is [floor(u/2),ceil(u/2)]
  
 	#partition=[]
 	#for i in T.children:
 		#if i!=None:
 			#partition.append(i.name)
 	i=T.name
-	if pivot==[] and T.name!=1 and ((i//2!=T.children[0].name) or ((i//2+i%2)!=T.children[1].name)): #next_partition(partition)!=None: 
+	if pivot==[] and T.name!=1 and ((i//2!=T.children[0].name) or ((i//2+i%2)!=T.children[1].name)): #and next_partition(partition)!=None: 
 		pivot.append(T)
 		T.info='p'
 		#print ("pivot is:",T.name)
@@ -232,6 +241,7 @@ def next_tree(T):
 	find_pivot(T,pivot)
 	if pivot!=[]: # If there is a pivot, then we can find the next tree
 		#print pivot[0]
+		#find the existing partition that is induced by pivot
 		partition=[]
 		for i in pivot[0].children:
 			if i!=None:
@@ -261,7 +271,7 @@ def next_tree(T):
 									c.append(1)
 								rebuild_node(ancestor.children[y],c)
 				# set x= parent of x 
-				x.info=None
+				x.info=None # reset the pivot mark
 				x=ancestor
 				if x==None:
 					break
