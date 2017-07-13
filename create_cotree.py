@@ -2,14 +2,15 @@ from Trees import Tree
 from sage.all import Graph
 import itertools
 
-# create_cotree: function that computes the cotree of a given graph
-
-# two input options:
-# --- 1. sage graph / python dictionary, with the nodes and ALL their neighbors
-# --- 2. a list containing the names of the nodes and a nested list containing the "eliminated" neighbors of the nodes,
-#     meaning that a node can have as neigbors only the nodes that precede in the given order.
-
 def create_cotree_1(g):
+	"""
+ 	create_cotree: function that computes the cotree of a given graph
+
+ 	two input options:
+ 	--- 1. sage graph / python dictionary, with the nodes and ALL their neighbors
+	--- 2. a list containing the names of the nodes and a nested list containing the "eliminated" neighbors of the nodes,
+  	       meaning that a node can have as neigbors only the nodes that precede in the given order.
+	"""
 	if has_no_p4_path(g)==False:
 		return
 	cotree=Tree('1')
@@ -71,10 +72,18 @@ def create_cotree_2(name,neighbors):
 	Tree.print_tree(cotree)
 	return
 
-# function that checks by definition if the given graph is a co-graph
-# if there is an induced path on any subgraph with 4 vertices, then it is not a co-graph,
-# otherwise it is a co-graph
 def has_no_p4_path(g):
+	"""
+ 	function that checks by definition if the given graph g is a co-graph
+ 	if there is an induced path on any subgraph with 4 vertices, then it is not a co-graph,
+ 	otherwise it is a co-graph
+	
+	There is a path on 4 vertices if:
+		 1) there are exactly 3 edges in the subgraph 
+		 2) there is at least one edge adjacent to each node (the "vertex cover" of the edges includes all 4 vertices)
+		 3) each vertex has at most 2 adjacent vertices
+	"""
+	
 	# find all the subgraphs of g on 4 vertices
 	comb = list(itertools.combinations(g, 4))
 	for i in comb:
@@ -96,10 +105,6 @@ def has_no_p4_path(g):
 			if count_edges>=4: # there is at least one cycle in the subgraph
 				break
 		#print count_edges
-		# There is a path on 4 vertices if:
-		# 1) there are 3 edges in the subgraph 
-		# 2) there is at least one edge adjacent to each node (the "vertex cover" of the edges includes all 4 vertices)
-		# 3) each vertex has at most 2 adjacent vertices
 		if count_edges==3 and len(vertex_cover)==4:
 			# at most 2 adjacent vertices = no vertex with 3 adjacent vertices
 			if not (3 in vertex_counter.values()):
@@ -109,11 +114,13 @@ def has_no_p4_path(g):
 	return True
 
 
-# An easier function to check if the graph is a cograph
-# A little bit more time consuming
-# Finds all subgraphs of g on 4 vertices and
-# checks all possible paths on the subgraph to see if there exists one  
 def has_no_p4_path_2(g):
+	"""
+	An easier function to check if the graph is a cograph
+	A little bit more time consuming
+	Finds all subgraphs of g on 4 vertices and
+	checks all possible paths on the subgraph to see if there exists one  
+	"""	
 	comb = list(itertools.combinations(g, 4)) # Find all subgraphs with 4 vertices
 	for i in comb:
 		#print i
@@ -129,13 +136,15 @@ def has_no_p4_path_2(g):
 	return True
 
 
-# Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)
+" Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)
 
 
-# given a partition a (of number n) find the partition immediately next to a
-# all partitions of 4 are: [1,1,1,1], [1,1,2],[1,3],[2,2] (in increasing order)
-# next_partition([1,1,2])  is [1,3]
 def next_partition(a):
+	"""
+	given a partition a (of number n) find the partition immediately next to a
+	all partitions of 4 are: [1,1,1,1], [1,1,2],[1,3],[2,2] (in increasing order)
+	next_partition([1,1,2])  is [1,3]
+	"""	
 	k=len(a)
 	n=0
 	for i in range(k):
@@ -173,9 +182,11 @@ def next_partition(a):
 				return [1,2]
 
 
-# rebuild_node(u,a): given a node u of the ordered tree T and a partition a, 
-# the subtree T(u) is replaced by the partition a, that is induced by u.
 def rebuild_node(u,a):
+	"""
+ 	rebuild_node(u,a): given a node u of the ordered tree T and a partition a, 
+	the subtree T(u) is replaced by the partition a, that is induced by u.
+	"""
 	k=len(a)
 	# replace the children of u with the partition a
 	# if k < number of existing children of the node, then we don't have to add children, just replace the 'existing' children.
@@ -211,20 +222,22 @@ def rebuild_node(u,a):
 	# return the tree
 	return 
 
-# find_pivot(T,pivot): given a tree T and a list pivot it finds the pivot i.e. the first node in reverse postorder traversal
-# that does not induce a maximum partition. 
-
 def find_pivot(T,pivot):
+	"""
+ 	find_pivot(T,pivot): given a tree T and a list pivot it finds the pivot i.e. the first node in reverse postorder traversal
+	that does not induce a maximum partition. 
+	"""
 	for child in reversed(T.children):
 		if pivot==[] and child!=None:
         		find_pivot(child,pivot)
-	# (Definition 9: pivot node)
-	# if node T is not a leaf, it does not induce a maximum partition 
-	# and it is the first such node in the inverse postorder traversal, 
-	# then it is the  PIVOT.
+	""" (Definition 9: pivot node)
+	 if node T is not a leaf, it does not induce a maximum partition 
+	 and it is the first such node in the inverse postorder traversal, 
+	 then it is the  PIVOT.
 	
-	# the maximum partition of u is [floor(u/2),ceil(u/2)]
- 
+	 the maximum partition of u is [floor(u/2),ceil(u/2)]
+ 	"""
+	
 	#partition=[]
 	#for i in T.children:
 		#if i!=None:
@@ -241,7 +254,7 @@ def next_tree(T):
 	find_pivot(T,pivot)
 	if pivot!=[]: # If there is a pivot, then we can find the next tree
 		#print pivot[0]
-		#find the existing partition that is induced by pivot
+		"find the existing partition that is induced by pivot
 		partition=[]
 		for i in pivot[0].children:
 			if i!=None:
@@ -285,9 +298,11 @@ def next_tree(T):
 	
 
 
-# Input integer n
-# Output, all cographs with n nodes
+
 def cograph_generator(n):
+    """ Input integer n
+ 	Output, all cographs with n nodes"""
+
 	if n>=2:
 		#print n
 		# Construct the minimum tree
