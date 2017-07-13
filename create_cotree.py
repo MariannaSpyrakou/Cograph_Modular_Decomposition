@@ -95,17 +95,23 @@ def has_no_p4_path(g):
 			if count_edges>=4: # there is at least one cycle in the subgraph
 				break
 		#print count_edges
-		# In that case we have a path on 4 edges
+		# There is a path on 4 vertices if:
+		# 1) there are 3 edges in the subgraph 
+		# 2) there is at least one edge adjacent to each node (the "vertex cover" of the edges includes all 4 vertices)
+		# 3) each vertex has at most 2 adjacent vertices
 		if count_edges==3 and len(vertex_cover)==4:
-			# unless all edges are adjacent to one vertex
+			# at most 2 adjacent vertices = no vertex with 3 adjacent vertices
 			if not (3 in vertex_counter.values()):
 				print ("The input graph is not a co-graph. Execution terminated!")
 				return False
 	print (" ")
 	return True
 
+
 # An easier function to check if the graph is a cograph
 # A little bit more time consuming
+# Finds all subgraphs of g with 4 vertices and
+# checks all possible paths on the subgraph to see if there exists one  
 def has_no_p4_path_2(g):
 	comb = list(itertools.combinations(g, 4)) # Find all subgraphs with 4 vertices
 	for i in comb:
@@ -121,7 +127,12 @@ def has_no_p4_path_2(g):
 	print (" ")
 	return True
 
+# Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)
+
+
 # given a partition a (of number n) find the partition immediately next to a
+# all partitions of 4 are: [1,1,1,1], [1,1,2],[1,3],[2,2] (in increasing order)
+# next_partition([1,1,2])  is [1,3]
 def next_partition(a):
 	k=len(a)
 	n=0
