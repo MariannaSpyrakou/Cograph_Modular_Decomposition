@@ -2,23 +2,23 @@ from __future__ import print_function
 class Tree(object):
     "Generic tree node."
     def __init__(self, name='root', children=None):
-        self.name = name
-        self.children = []
+	self.name = name
+	self.children = []
 	self.info = None
 	self.parent = None
         if children is not None:
-            for child in children:
-                self.add_child(child)
-		child.parent=self
+		for child in children:
+			self.add_child(child)
+			child.parent=self
     def __repr__(self):
-        return self.name
+	return self.name
     def add_child(self, node):
-        assert isinstance(node, Tree)
-        self.children.append(node)
+	assert isinstance(node, Tree)
+	self.children.append(node)
 	node.parent=self
 
     def __str__(self):
-        return str(self.name)
+	return str(self.name)
 
     def reset_info(self):
 	for child in self.children:
