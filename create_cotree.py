@@ -136,7 +136,7 @@ def has_no_p4_path_2(g):
 	return True
 
 
-" Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)
+" Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)"
 
 
 def next_partition(a):
@@ -254,7 +254,7 @@ def next_tree(T):
 	find_pivot(T,pivot)
 	if pivot!=[]: # If there is a pivot, then we can find the next tree
 		#print pivot[0]
-		"find the existing partition that is induced by pivot
+		"find the existing partition that is induced by pivot"
 		partition=[]
 		for i in pivot[0].children:
 			if i!=None:
@@ -300,9 +300,10 @@ def next_tree(T):
 
 
 def cograph_generator(n):
-    """ Input integer n
- 	Output, all cographs with n nodes"""
-
+	""" 
+	Input integer n
+ 	Output, all cographs with n nodes
+	"""
 	if n>=2:
 		#print n
 		# Construct the minimum tree
@@ -363,4 +364,3 @@ if __name__ == "__main__":
 	#print i
 	print (" ")
 	cograph_generator(8)
-	
