@@ -5,15 +5,17 @@ class Tree(object):
         self.name = name
         self.children = []
 	self.info = None
+	self.parent = None
         if children is not None:
             for child in children:
                 self.add_child(child)
+		child.parent=self
     def __repr__(self):
         return self.name
     def add_child(self, node):
         assert isinstance(node, Tree)
         self.children.append(node)
-
+	node.parent=self
 
     def __str__(self):
         return str(self.name)
@@ -26,7 +28,7 @@ class Tree(object):
 	return
    
 	
-        def is_cograph(self,x,S,flag_mixed):
+    def is_cograph(self,x,S,flag_mixed):
 	"""
     	is_cograph: function that ckecks if (G+x) is a cograph
      	input: tree, x: inserting node, S: set of adjacent nodes of x, flag_mixed: 
@@ -204,8 +206,8 @@ class Tree(object):
 	return	
 
 
-def print_tree(self):
-	" print_tree: for every node its subtree is inside brackets [ ]
+    def print_tree(self):
+	" print_tree: for every node its subtree is inside brackets [ ]"
 	if self.name=='1' or self.name=='0':
 		print ('[',self.name,' ',sep='', end='')
 	else:
@@ -222,7 +224,7 @@ def print_tree(self):
 
 
     def print_tree_postorder(self):
-	" print_tree_postorder: function that traverses the tree in postorder and prints it
+	" print_tree_postorder: function that traverses the tree in postorder and prints it"
 	for child in self.children:
 		if child!=None:
     			child.print_tree()				
