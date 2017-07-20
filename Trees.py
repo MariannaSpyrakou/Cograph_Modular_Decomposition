@@ -154,7 +154,7 @@ class Tree(object):
 				self.add_child(Tree('1',[t1,Tree(x)]))
 				i=0
 				for child in self.children:
-					if child.info==1 or child.info==2:
+					if child !=None and (child.info==1 or child.info==2):
 						self.children[i]=None
 						t1.add_child(child)
 					i=i+1			
