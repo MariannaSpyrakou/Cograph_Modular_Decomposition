@@ -39,7 +39,9 @@ create_cotree.py
        
        
 create_cograph.py
-        -- Creates all graphs with n nodes, and checks which of them are co-graphs
+
+
+       -- Creates all graphs with n nodes, and checks which of them are co-graphs
 
 
 Trees.py
