@@ -2,7 +2,8 @@ from create_cotree import *
 from sage.all import Graph,graphs
 
 """
-Create all graphs with n nodes with command gen = graphs.nauty_geng("n -c"). Replace n with the number of vertices of the graph
+Create all graphs with n nodes, check which of them are cographs and output their cotree.
+generate all graphs with the command gen = graphs.nauty_geng("n -c"). Replace n with the number of vertices of the graph
 (Works for n=3,...,9)
 """
 gen = graphs.nauty_geng("9 -c")
