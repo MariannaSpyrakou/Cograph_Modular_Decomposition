@@ -139,14 +139,15 @@ class Tree(object):
 				# one adjacent node 
 				i=0
 				for child in self.children:
-					if child.info==1:
-						this_child=child
-						self.children[i]=Tree('1',[this_child,Tree(x)])
-						break
-					if child.info==2:
-						child.add_child(Tree(x))
-						break
-					i=i+1
+					if child!=None:
+						if child.info==1:
+							this_child=child
+							self.children[i]=Tree('1',[this_child,Tree(x)])
+							break
+						if child.info==2:
+							child.add_child(Tree(x))
+							break
+						i=i+1
 
 			else:
 				#more than one adjacent node
