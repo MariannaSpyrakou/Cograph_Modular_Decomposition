@@ -191,8 +191,9 @@ class Tree(object):
 	elif self.info==4: 
 		# tree has empty label
 		if self.children[1]==None:
-			# G is disconnected
-			Tree.add_child(self.children[0],Tree(x))
+			if len(self.children) == 1 or self.children[1]==None:
+                		# G is disconnected
+                		Tree.add_child(self.children[0], Tree(x))
 		else:
 			# G is connected but G+x is disconnected
 			i=0
