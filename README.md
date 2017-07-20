@@ -33,7 +33,13 @@ create_cotree.py
                neighbors only the nodes that are adjacent and precede in the given order (see main example)
                
        -- Functions: has_no_p4_path() and has_no_p4_path_2()
-            check if in any subgraph of 4 vertices there is a path. If so, the graph is not a co-graph, otherwise it is a cograph. 
+            check if in any subgraph of 4 vertices there is a path. If so, the graph is not a co-graph, otherwise it is a cograph.
+            
+       -- Function cograph_generator: generates all cographs with n nodes (doesn't work properly for 8,9,.. nodes)
+       
+       
+create_cograph.py
+        -- Creates all graphs with n nodes, and checks which of them are co-graphs
 
 
 Trees.py
@@ -65,4 +71,4 @@ Trees.py
 
 -- Function: print_tree()
 
-    prints tree nodes in postorder traversal
+    prints tree nodes. Prints '1' for series nodes and '0' for parallel nodes
