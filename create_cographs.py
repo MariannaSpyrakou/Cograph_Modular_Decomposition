@@ -14,6 +14,7 @@ for g in list(gen):
 		# print the co_graph
 		#for vert in g:
 			#print (vert,g[vert])
+		# count the co_graphs
 		#print number_cographs
 		tree=create_cotree_1(g)
 	else:
