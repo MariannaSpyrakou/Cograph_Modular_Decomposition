@@ -40,8 +40,8 @@ def create_cotree_1(g):
 				print ("The input graph is not a co-graph. Execution terminated!")
 				return
 			# initialize tree info for the next iteration
-			Tree.make_info_None(cotree)
-	Tree.print_tree(cotree)
+			cotree.reset_info()
+	cotree.print_tree()
 	return
 
 def create_cotree_2(name,neighbors):
@@ -68,8 +68,8 @@ def create_cotree_2(name,neighbors):
 				return
 			if i<len(name)-1:
 				# initialize tree info for the next iteration
-				Tree.make_info_None(cotree)
-	Tree.print_tree(cotree)
+				cotree.reset_info()
+	cotree.print_tree()
 	return
 
 def has_no_p4_path(g):
