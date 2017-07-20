@@ -108,7 +108,7 @@ def has_no_p4_path(g):
 		if count_edges==3 and len(vertex_cover)==4:
 			# at most 2 adjacent vertices = no vertex with 3 adjacent vertices
 			if not (3 in vertex_counter.values()):
-				print ("The input graph is not a co-graph. Execution terminated!")
+				#print ("The input graph is not a co-graph. Execution terminated!")
 				return False
 	print (" ")
 	return True
@@ -130,7 +130,7 @@ def has_no_p4_path_2(g):
 				if (g.has_edge(j[0],j[2]) or g.has_edge(j[0],j[3]) or g.has_edge(j[1],j[3])):
 					break
 				else:   # case that there is a path on 4 edges
-					print ("The input graph is not a co-graph. Execution terminated!")
+					#print ("The input graph is not a co-graph. Execution terminated!")
 					return False
 	print (" ")
 	return True
