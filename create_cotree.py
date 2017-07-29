@@ -110,7 +110,7 @@ def has_no_p4_path(g):
 			if not (3 in vertex_counter.values()):
 				#print ("The input graph is not a co-graph. Execution terminated!")
 				return False
-	print (" ")
+	#print (" ")
 	return True
 
 
@@ -132,7 +132,7 @@ def has_no_p4_path_2(g):
 				else:   # case that there is a path on 4 edges
 					#print ("The input graph is not a co-graph. Execution terminated!")
 					return False
-	print (" ")
+	#print (" ")
 	return True
 
 
