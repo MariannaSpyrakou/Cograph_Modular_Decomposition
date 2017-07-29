@@ -316,11 +316,20 @@ def cograph_generator(n):
 		while flag:
 			## T corresponds to 2 cotrees: one with '0' root and one with '1' root
 			#T.print_tree() 
-			tree=Tree(T.name)
-			T.copy_tree(tree)
+			tree1=Tree(T.name)
+			T.copy_tree(tree1)
+			tree0=Tree(T.name)
+			T.copy_tree(tree0)
+			# tree 1 has root '1'
 			counter=[0]
-			change_names(tree,1,counter)
-			cograph_gen.append(tree)
+			change_names(tree1,1,counter)
+			# tree 0 has root '0'
+			counter=[0]
+			change_names(tree0,0,counter)
+			tree00=Tree('1')
+			tree00.add_child(tree0)
+			cograph_gen.append(tree1)
+			cograph_gen.append(tree00)
 			flag=next_tree(T) # Find the next tree. return False if there is no other Tree
 			if not flag:
 				break
@@ -336,7 +345,6 @@ def change_names(tree,status,counter):
 	if tree.name!=1:
 		#print tree.name
 		tree.name=str(status%2)
-		#print "this case"
 	else:
 		tree.name=counter[0]
 		counter[0]+=1
@@ -412,11 +420,13 @@ if __name__ == "__main__":
 		#i=i+1
 	#print i
 	print (" ")
-	co_gen=cograph_generator(10)
+	# n= number of vertices of the graph
+	n=10
+	co_gen=cograph_generator(n)
 	false_counter=0;
 	for tree in co_gen:
 		#tree.print_tree()
-		g=Graph()
+		g=Graph(n)
 		tree_to_graph(tree,g)
 		cotreee=create_cotree_1(g)
 		false_flag=tree.tree_equality(cotreee)
