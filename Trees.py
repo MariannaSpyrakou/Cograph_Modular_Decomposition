@@ -231,3 +231,20 @@ class Tree(object):
     			child.print_tree()				
 	print (self.name)
 	return
+    def copy_tree(self,tree):
+	i=0
+	for child in self.children:
+		if child!=None:
+			tree.add_child(Tree(child.name))
+			child.copy_tree(tree.children[i])
+			i=i+1
+
+    def tree_equality(self,tree):
+	while None in self.children: self.children.remove(None)
+	while None in tree.children: tree.children.remove(None)
+	for i in range(len(self.children)):
+		self.children[i].tree_equality(tree.children[i])
+	if self.name!=tree.name:
+		print (self.name)
+		print (tree.name)
+		return False
