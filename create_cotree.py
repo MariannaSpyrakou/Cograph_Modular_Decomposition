@@ -422,6 +422,6 @@ if __name__ == "__main__":
 		false_flag=tree.tree_equality(cotreee)
 		if false_flag!=None:
 			false_counter+=1
-		print " "
+		#print " "
 	print "false counter"
 	print false_counter	
