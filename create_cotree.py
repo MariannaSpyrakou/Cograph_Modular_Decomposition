@@ -41,8 +41,8 @@ def create_cotree_1(g):
 				return
 			# initialize tree info for the next iteration
 			cotree.reset_info()
-	cotree.print_tree()
-	return
+	#cotree.print_tree()
+	return cotree
 
 def create_cotree_2(name,neighbors):
 	cotree=Tree('1')
@@ -69,8 +69,8 @@ def create_cotree_2(name,neighbors):
 			if i<len(name)-1:
 				# initialize tree info for the next iteration
 				cotree.reset_info()
-	cotree.print_tree()
-	return
+	#cotree.print_tree()
+	return cotree
 
 def has_no_p4_path(g):
 	"""
