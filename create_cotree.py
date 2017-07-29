@@ -312,22 +312,71 @@ def cograph_generator(n):
 			T.add_child(Tree(1))
 		i=1
 		flag=True
+		cograph_gen=[]
 		while flag:
 			## T corresponds to 2 cotrees: one with '0' root and one with '1' root
-			T.print_tree() # not suitable output, need to fix it
-			print (" ")
-			#print (" ")
-			#print(" ")
+			#T.print_tree() 
+			tree=Tree(T.name)
+			T.copy_tree(tree)
+			counter=[0]
+			change_names(tree,1,counter)
+			cograph_gen.append(tree)
 			flag=next_tree(T) # Find the next tree. return False if there is no other Tree
 			if not flag:
 				break
 			#print(" ")
 			i=i+1
 		print ("The number of cotrees is: ",2*i)
+		return cograph_gen
 	else:
 		print ("Number of vertices must be >=2")
 	return
 
+def change_names(tree,status,counter):
+	if tree.name!=1:
+		#print tree.name
+		tree.name=str(status%2)
+		#print "this case"
+	else:
+		tree.name=counter[0]
+		counter[0]+=1
+	for child in tree.children:
+		if child!=None: 
+			change_names(child,status+1,counter)
+	return
+
+def tree_to_graph(tree,g):
+	for child in tree.children:
+            if child != None:
+                tree_to_graph(child,g)
+        if tree.name!='1' and tree.name!='0':
+		tree.info='v'
+		find_neighbors(tree,g)
+		tree.reset_info()
+        return	
+
+	
+def find_neighbors(tree,g):
+	ancestor=tree.parent
+	ancestor.info='v'
+	while ancestor!=None:
+		if ancestor.name=='1':
+			for sibling in ancestor.children:
+				if sibling!=tree and sibling!=None and sibling.info!='v':
+					add_sibling(tree,sibling,g)
+		elif ancestor.name=='0':
+			ancestor.info='v'
+		ancestor=ancestor.parent
+		
+			
+
+def add_sibling(tree,sibling,g):
+	if sibling.name!='0' and sibling.name!='1':
+		g.add_edge(tree.name,sibling.name)
+	else:
+		for child in sibling.children:
+			if child!=None:
+				add_sibling(tree,child,g)
 	
 
 
@@ -363,4 +412,16 @@ if __name__ == "__main__":
 		#i=i+1
 	#print i
 	print (" ")
-	cograph_generator(8)
+	co_gen=cograph_generator(10)
+	false_counter=0;
+	for tree in co_gen:
+		#tree.print_tree()
+		g=Graph()
+		tree_to_graph(tree,g)
+		cotreee=create_cotree_1(g)
+		false_flag=tree.tree_equality(cotreee)
+		if false_flag!=None:
+			false_counter+=1
+		print " "
+	print "false counter"
+	print false_counter	
