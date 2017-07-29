@@ -133,77 +133,76 @@ class Tree(object):
 	"""	
 		
 	if self.info == 5:
-            if self.name == '0':
-                # parallel node
-                if sum_adj == 1:
-                    # one adjacent node
-                    i = 0
-                    for child in self.children:
-                        if child !=None and child.info == 1:
-                            this_child = child
-                            self.children[i] = Tree('1', [this_child, Tree(x)])
-                            break
-                        if child!=None and child.info == 2:
-                            child.add_child(Tree(x))
-                            break
-                        i = i + 1
-
-                else:
-                    # more than one adjacent node
-                    t1 = Tree('0')
-                    self.add_child(Tree('1', [t1, Tree(x)]))
-                    i = 0
-                    for child in self.children:
-                        if child !=None and (child.info == 1 or child.info == 2):
-                            self.children[i] = None
-                            t1.add_child(child)
-                        i = i + 1
-            else:
-                # tree.name=='1'
-                # series node
-                if sum_non_adj == 1:
-                    # one non adjacent node
-                    i = 0
-                    for child in self.children:
-                        if child != None:
-                            if child.info == None:
-                                this_child = child
-                                self.children[i] = Tree('0', [this_child, Tree(x)])
-                                break
-                            if child.info == 4:
-                                child.add_child(Tree(x))
-                                break
-                        i = i + 1
-                else:
-                    # more than one non adjacent node
-                    t1 = Tree('1')
-                    i = 0
-                    for child in self.children:
-                        if child != None:
-                            if child.info == None or child.info == 4:
-                                self.children[i] = None
-                                t1.add_child(child)
-                        i = i + 1
-                    self.add_child(Tree('0', [t1, Tree(x)]))
-        elif self.info == 2:
-            # x is connected to all vertices of G
-            self.add_child(Tree(x))
-        elif self.info == 4:
-            # tree has empty label
-	    while None in self.children: self.children.remove(None)
-            if len(self.children) == 1:
-                # G is disconnected
-                Tree.add_child(self.children[0], Tree(x))
-            else:
-                # G is connected but G+x is disconnected
-                i = 0
-                t2 = Tree('1')
-                t1 = Tree('0', [t2, Tree(x)])
-                for child in self.children:
-                    self.children[i] = None
-                    t2.add_child(child)
-                    i = i + 1
-                self.add_child(t1)
+		if self.name == '0':
+			# parallel node
+			if sum_adj == 1:
+				# one adjacent node
+				i = 0
+				for child in self.children:
+					if child !=None and child.info == 1:
+						this_child = child
+						self.children[i] = Tree('1', [this_child, Tree(x)])
+						break
+					if child!=None and child.info == 2:
+						child.add_child(Tree(x))
+						break
+					i = i + 1
+			else:
+				# more than one adjacent node
+				t1 = Tree('0')
+				self.add_child(Tree('1', [t1, Tree(x)]))
+				i = 0
+				for child in self.children:
+					if child !=None and (child.info == 1 or child.info == 2):
+						self.children[i] = None
+						t1.add_child(child)
+					i = i + 1
+		else:
+			# tree.name=='1'
+			# series node
+			if sum_non_adj == 1:
+				# one non adjacent node
+				i = 0
+				for child in self.children:
+					if child != None:
+						if child.info == None:
+							this_child = child
+							self.children[i] = Tree('0', [this_child, Tree(x)])
+							break
+						if child.info == 4:
+							child.add_child(Tree(x))
+							break
+					i = i + 1
+			else:
+				# more than one non adjacent node
+				t1 = Tree('1')
+				i = 0
+				for child in self.children:
+					if child != None:
+						if child.info == None or child.info == 4:
+							self.children[i] = None
+							t1.add_child(child)
+					i = i + 1
+				self.add_child(Tree('0', [t1, Tree(x)]))
+	elif self.info == 2:
+		# x is connected to all vertices of G
+		self.add_child(Tree(x))
+	elif self.info == 4:
+		# tree has empty label
+		while None in self.children: self.children.remove(None)
+		if len(self.children) == 1:
+			# G is disconnected
+			Tree.add_child(self.children[0], Tree(x))
+		else:
+			# G is connected but G+x is disconnected
+			i = 0
+			t2 = Tree('1')
+			t1 = Tree('0', [t2, Tree(x)])
+			for child in self.children:
+				self.children[i] = None
+				t2.add_child(child)
+				i = i + 1
+			self.add_child(t1)
         return
 
 
