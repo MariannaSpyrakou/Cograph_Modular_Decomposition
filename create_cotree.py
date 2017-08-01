@@ -276,7 +276,9 @@ def next_tree(T):
 						if is_bigger_sibling==True and this_child.info!='p': # true only for bigger siblings of x
 							if x.name==this_child.name: 
 								#print ("case 1")
-								ancestor.children[y]=x  #copy subtree T(x) in T(y)
+								temp=Tree(x.name)
+								x.copy_tree(temp)
+								ancestor.children[y]=temp  #copy subtree T(x) in T(y)  #copy subtree T(x) in T(y)
 							else:
 								#print ("case 2")
 								c=[]
