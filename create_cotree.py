@@ -268,6 +268,7 @@ def next_tree(T):
 				#print ancestor.name
 				# modify the bigger siblings of node x
 				is_bigger_sibling=False
+				while None in ancestor.children: ancestor.children.remove(None)
 				for y in range(len(ancestor.children)) : # y = all siblings of x
 					if ancestor.children[y]!=None:
 						this_child=ancestor.children[y]
@@ -278,7 +279,9 @@ def next_tree(T):
 								#print ("case 1")
 								temp=Tree(x.name)
 								x.copy_tree(temp)
-								ancestor.children[y]=temp  #copy subtree T(x) in T(y)  #copy subtree T(x) in T(y)
+								ancestor.children[y]=None  
+								ancestor.children.remove(None)
+								ancestor.add_child(temp) #copy subtree T(x) in T(y)
 							else:
 								#print ("case 2")
 								c=[]
