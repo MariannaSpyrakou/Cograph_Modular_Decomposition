@@ -279,9 +279,8 @@ def next_tree(T):
 								#print ("case 1")
 								temp=Tree(x.name)
 								x.copy_tree(temp)
-								ancestor.children[y]=None  
-								ancestor.children.remove(None)
-								ancestor.add_child(temp) #copy subtree T(x) in T(y)
+								ancestor.children[y]=temp  #copy subtree T(x) in T(y)
+								temp.parent=ancestor
 							else:
 								#print ("case 2")
 								c=[]
