@@ -114,6 +114,9 @@ def find_pivot(T,pivot):
 	return 
 
 def next_tree(T):
+	"""
+	Given the co-tree T, find the next cotree 
+	"""
 	pivot=[]
 	find_pivot(T,pivot)
 	if pivot!=[]: # If there is a pivot, then we can find the next tree
