@@ -1,5 +1,5 @@
 from Trees import Tree
-from sage.all import Graph
+from sage.all import Graph,graphs
 from Cograph_generator import *
 import itertools
 
@@ -12,7 +12,7 @@ def create_cotree_1(g):
 	--- 2. a list containing the names of the nodes and a nested list containing the "eliminated" neighbors of the nodes,
   	       meaning that a node can have as neigbors only the nodes that precede in the given order.
 	"""
-	if has_no_p4_path(g)==False:
+	if is_cograph(g)==False:
 		return
 	cotree=Tree('1')
 	# the root of the tree is always '1'
@@ -20,7 +20,7 @@ def create_cotree_1(g):
 	for node in g:
 		if i==0:
 			first_node=node
-			i=i+1
+			i+=1
 		elif i==1:
 			if g.has_edge(node,first_node):
 				# first and second node are adjacent
@@ -30,7 +30,7 @@ def create_cotree_1(g):
 				# first and second node are not adjacent
 				tree0=Tree('0',[Tree(first_node),Tree(node)])
 				Tree.add_child(cotree,tree0)
-			i=i+1
+			i+=1
 		else:
 			# add incrementally nodes 3,...,end to the cotree
 			flag_mixed=[0]
@@ -42,7 +42,6 @@ def create_cotree_1(g):
 				return
 			# initialize tree info for the next iteration
 			cotree.reset_info()
-	#cotree.print_tree()
 	return cotree
 
 def create_cotree_2(name,neighbors):
@@ -70,8 +69,11 @@ def create_cotree_2(name,neighbors):
 			if i<len(name)-1:
 				# initialize tree info for the next iteration
 				cotree.reset_info()
-	#cotree.print_tree()
 	return cotree
+
+def is_cograph(g):
+	P4 = graphs.PathGraph(4)
+	return not g.subgraph_search(P4, induced=True)
 
 def has_no_p4_path(g):
 	"""
@@ -88,7 +90,6 @@ def has_no_p4_path(g):
 	# find all the subgraphs of g on 4 vertices
 	comb = list(itertools.combinations(g, 4))
 	for i in comb:
-		#print i
 		# find all possible edges of the subgraph / all possible combinations of the 4 vertices
 		pos_edges=list(itertools.combinations(i,2))
 		count_edges=0  # number of edges in the subgraph
@@ -105,13 +106,11 @@ def has_no_p4_path(g):
 				vertex_counter[j[1]]=vertex_counter[j[1]]+1
 			if count_edges>=4: # there is at least one cycle in the subgraph
 				break
-		#print count_edges
 		if count_edges==3 and len(vertex_cover)==4:
 			# at most 2 adjacent vertices = no vertex with 3 adjacent vertices
 			if not (3 in vertex_counter.values()):
-				#print ("The input graph is not a co-graph. Execution terminated!")
+				#print ("The input graph is not a co-graph. ")
 				return False
-	#print (" ")
 	return True
 
 
@@ -124,16 +123,14 @@ def has_no_p4_path_2(g):
 	"""	
 	comb = list(itertools.combinations(g, 4)) # Find all subgraphs with 4 vertices
 	for i in comb:
-		#print i
 		perm=list(itertools.permutations(i)) # Find all the permutations of the 4 nodes
 		for j in perm:
 			if g.has_edge(j[0],j[1]) and g.has_edge(j[1],j[2]) and g.has_edge(j[2],j[3]):
 				if (g.has_edge(j[0],j[2]) or g.has_edge(j[0],j[3]) or g.has_edge(j[1],j[3])):
 					break
 				else:   # case that there is a path on 4 edges
-					#print ("The input graph is not a co-graph. Execution terminated!")
+					#print ("The input graph is not a co-graph.")
 					return False
-	#print (" ")
 	return True
 
 
@@ -172,7 +169,7 @@ def add_sibling(tree,sibling,g):
 
 
 if __name__ == "__main__":
-	# input option 1:
+# input option 1:
 	d = {'a': ['b','d','e','f','x'],
      'b': ['a','f','e','d'],
      'c': ['f','e','d'],
@@ -183,16 +180,19 @@ if __name__ == "__main__":
 	g=Graph(d)
 	#create_cotree_1(g)
 
+
 	#print (" ")
 
 	# input option 2:
 	names =['a','b','c','d','e','f','x']
 	neighbors = [[],['a'] ,[],  ['a','b','c'], ['a','b','c'], ['a','b','c'] , ['f','a','d','e']]
+
 	#create_cotree_2(names,neighbors)
 	
+
 	print (" ")
 	# n= number of vertices of the graph
-	n=8
+	n=11
 	co_gen=cograph_generator(n)
 	false_counter=0;
 	for tree in co_gen:
@@ -203,3 +203,4 @@ if __name__ == "__main__":
 		if false_flag!=None:
 			false_counter+=1
 	print ("The number of wrongly computed cotrees is: ", false_counter)	
+		
