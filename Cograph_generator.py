@@ -183,7 +183,6 @@ def cograph_generator(n):
 			T.add_child(Tree(1))
 		i=1
 		flag=True
-		cograph_gen=[]
 		while flag:
 			## T corresponds to 2 cotrees: one with '0' root and one with '1' root
 			#T.print_tree() 
@@ -199,15 +198,14 @@ def cograph_generator(n):
 			change_label(tree0,0,counter)
 			tree00=Tree('1')
 			tree00.add_child(tree0)
-			cograph_gen.append(tree1)
-			cograph_gen.append(tree00)
+			yield tree1
+			yield tree00
 			flag=next_tree(T) # Find the next tree. return False if there is no other Tree
 			if not flag:
 				break
 			#print(" ")
 			i=i+1
 		print ("The number of cotrees is: ",2*i)
-		return cograph_gen
 	else:
 		print ("Number of vertices must be >=2")
 	return
