@@ -1,5 +1,6 @@
 from Trees import Tree
 from sage.all import Graph
+from Cograph_generator import *
 import itertools
 
 def create_cotree_1(g):
