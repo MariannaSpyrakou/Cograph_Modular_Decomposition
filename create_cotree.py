@@ -140,8 +140,7 @@ def has_no_p4_path_2(g):
 
 def tree_to_graph(tree,g):
 	for child in tree.children:
-            if child != None:
-                tree_to_graph(child,g)
+            tree_to_graph(child,g)
         if tree.name!='1' and tree.name!='0':
 		tree.info='v'
 		find_neighbors(tree,g)
@@ -155,7 +154,7 @@ def find_neighbors(tree,g):
 	while ancestor!=None:
 		if ancestor.name=='1':
 			for sibling in ancestor.children:
-				if sibling!=tree and sibling!=None and sibling.info!='v':
+				if sibling!=tree and sibling.info!='v':
 					add_sibling(tree,sibling,g)
 		elif ancestor.name=='0':
 			ancestor.info='v'
@@ -168,13 +167,12 @@ def add_sibling(tree,sibling,g):
 		g.add_edge(tree.name,sibling.name)
 	else:
 		for child in sibling.children:
-			if child!=None:
-				add_sibling(tree,child,g)
+			add_sibling(tree,child,g)
 	
 
 
 if __name__ == "__main__":
-# input option 1:
+	# input option 1:
 	d = {'a': ['b','d','e','f','x'],
      'b': ['a','f','e','d'],
      'c': ['f','e','d'],
@@ -185,38 +183,23 @@ if __name__ == "__main__":
 	g=Graph(d)
 	#create_cotree_1(g)
 
-
-	print (" ")
+	#print (" ")
 
 	# input option 2:
 	names =['a','b','c','d','e','f','x']
 	neighbors = [[],['a'] ,[],  ['a','b','c'], ['a','b','c'], ['a','b','c'] , ['f','a','d','e']]
-
 	#create_cotree_2(names,neighbors)
-	print (" ")
-
 	
-	#k=next_partition([1,1,1,1,1,1,1])
-	#print k
-	#i=1
-	#while k!=None:
-		#k=next_partition(k)
-		#print k
-		#i=i+1
-	#print i
 	print (" ")
 	# n= number of vertices of the graph
-	n=10
+	n=8
 	co_gen=cograph_generator(n)
 	false_counter=0;
 	for tree in co_gen:
-		#tree.print_tree()
 		g=Graph(n)
 		tree_to_graph(tree,g)
 		cotreee=create_cotree_1(g)
 		false_flag=tree.tree_equality(cotreee)
 		if false_flag!=None:
 			false_counter+=1
-		#print " "
-	print "false counter"
-	print false_counter	
+	print ("The number of wrongly computed cotrees is: ", false_counter)	
