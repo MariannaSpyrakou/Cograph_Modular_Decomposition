@@ -193,10 +193,10 @@ def cograph_generator(n):
 			T.copy_tree(tree0)
 			# tree 1 has root '1'
 			counter=[0]
-			change_names(tree1,1,counter)
+			change_label(tree1,1,counter)
 			# tree 0 has root '0'
 			counter=[0]
-			change_names(tree0,0,counter)
+			change_label(tree0,0,counter)
 			tree00=Tree('1')
 			tree00.add_child(tree0)
 			cograph_gen.append(tree1)
@@ -212,16 +212,19 @@ def cograph_generator(n):
 		print ("Number of vertices must be >=2")
 	return
 
-def change_names(tree,status,counter):
+def change_label(tree,status,counter):
+	"""
+	Given the the co-tree tree,that each node has aslabel the number of its children, 
+	change the label into "0" for parallel nodes, "1" for series nodes and a "node-number" for the leaves/nodes
+	"""
 	if tree.name!=1:
-		#print tree.name
 		tree.name=str(status%2)
 	else:
 		tree.name=counter[0]
 		counter[0]+=1
 	for child in tree.children:
 		if child!=None: 
-			change_names(child,status+1,counter)
+			change_label(child,status+1,counter)
 	return
 
 
