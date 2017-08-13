@@ -24,7 +24,7 @@ class Tree(object):
 	for child in self.children:
 		child.reset_info()
 	self.info = None
-	return
+
    
 	
     def is_cograph(self,x,S,flag_mixed):
@@ -53,49 +53,49 @@ class Tree(object):
 	sum_adj=0
 	sum_non_adj=0
 	for child in self.children:
-		
-		if child.info == 3 or child.info==5:
-			# tree has a mixed child
-			self.info = 3
-		elif child.info == 1 or child.info == 2:
-			# tree has an adjacent child
-			if sum_non_adj>0:
-				# tree has non adjacent child/children too
-				if flag_mixed[0]==0:
-					# the first mixed node
-					self.info = 5
-					flag_mixed[0]=1
-					sum_adj=sum_adj+1
-				elif flag_mixed[0]==1:
-					#not possible to be the second node that has both adjacent and non adjacent children
-					if self.info==5:
+		if True:
+			if child.info == 3 or child.info==5:
+				# tree has a mixed child
+				self.info = 3
+			elif child.info == 1 or child.info == 2:
+				# tree has an adjacent child
+				if sum_non_adj>0:
+					# tree has non adjacent child/children too
+					if flag_mixed[0]==0:
+						# the first mixed node
+						self.info = 5
+						flag_mixed[0]=1
 						sum_adj=sum_adj+1
-					else:
-						self.info =3
-						flag_mixed[0]=2
-						return
-			else:
-				# count the number of adjacent nodes
-				sum_adj=sum_adj+1
-		elif child.info == None or child.info == 4:
-			# tree has a non adjacent child
-			if sum_adj>0:
-				# tree has adjacent child/children too
-				if flag_mixed[0]==0:
-					# the first mixed node
-					self.info=5
-					flag_mixed[0]=1
-					sum_non_adj=sum_non_adj+1
-				elif flag_mixed[0]==1:
-					if self.info==5:
-						sum_non_adj=sum_non_adj+1
-					else:
+					elif flag_mixed[0]==1:
 						#not possible to be the second node that has both adjacent and non adjacent children
-						flag_mixed[0]=2
-						return
-			else:
-				# count the number of non-adjacent nodes
-				sum_non_adj=sum_non_adj+1
+						if self.info==5:
+							sum_adj=sum_adj+1
+						else:
+							self.info =3
+							flag_mixed[0]=2
+							return
+				else:
+					# count the number of adjacent nodes
+					sum_adj=sum_adj+1
+			elif child.info == None or child.info == 4:
+				# tree has a non adjacent child
+				if sum_adj>0:
+					# tree has adjacent child/children too
+					if flag_mixed[0]==0:
+						# the first mixed node
+						self.info=5
+						flag_mixed[0]=1
+						sum_non_adj=sum_non_adj+1
+					elif flag_mixed[0]==1:
+						if self.info==5:
+							sum_non_adj=sum_non_adj+1
+						else:
+							#not possible to be the second node that has both adjacent and non adjacent children
+							flag_mixed[0]=2
+							return
+				else:
+					# count the number of non-adjacent nodes
+					sum_non_adj=sum_non_adj+1
 	if self.info == None:
 		if sum_adj>0:
 			# no mixed nodes, only adjacent nodes
@@ -144,7 +144,7 @@ class Tree(object):
 					if child.info == 2:
 						child.add_child(Tree(x))
 						break
-					i = i + 1
+					i += 1
 			else:
 				# more than one adjacent node
 				t1 = Tree('0')
@@ -154,9 +154,8 @@ class Tree(object):
 					if (child.info == 1 or child.info == 2):
 						self.children[i] = None
 						t1.add_child(child)
-						self.children.remove(None)
-					else:
-						i += 1
+					i += 1
+				while None in self.children: self.children.remove(None)
 		else:
 			# tree.name=='1'
 			# series node
@@ -171,7 +170,7 @@ class Tree(object):
 					if child.info == 4:
 						child.add_child(Tree(x))
 						break
-					i = i + 1
+					i += 1
 			else:
 				# more than one non adjacent node
 				t1 = Tree('1')
@@ -180,28 +179,30 @@ class Tree(object):
 					if child.info == None or child.info == 4:
 						self.children[i] = None
 						t1.add_child(child)
-						self.children.remove(None)
-					else:
-						i += 1
+					i = i + 1
+				while None in self.children: self.children.remove(None)
 				self.add_child(Tree('0', [t1, Tree(x)]))
 	elif self.info == 2:
 		# x is connected to all vertices of G
 		self.add_child(Tree(x))
 	elif self.info == 4:
 		# tree has empty label
+		#while None in self.children: self.children.remove(None)
 		if len(self.children) == 1:
 			# G is disconnected
 			Tree.add_child(self.children[0], Tree(x))
 		else:
 			# G is connected but G+x is disconnected
+			i = 0
 			t2 = Tree('1')
 			t1 = Tree('0', [t2, Tree(x)])
 			for child in self.children:
-				self.children[0] = None
+				self.children[i] = None
 				t2.add_child(child)
-				self.children.remove(None)
+				i += 1
+			while None in self.children: self.children.remove(None)
 			self.add_child(t1)
-        return
+        
 
 
 
@@ -217,23 +218,20 @@ class Tree(object):
 		print ('],',end=' ')
 	else:	
 		print (')',end=' ')			
-	return
-
-
-
+	
     def print_tree_postorder(self):
 	" print_tree_postorder: function that traverses the tree in postorder and prints it"
 	for child in self.children:
     		child.print_tree()				
 	print (self.name)
-	return
+	
 
     def copy_tree(self,tree):
 	i=0
 	for child in self.children:
 		tree.add_child(Tree(child.name))
 		child.copy_tree(tree.children[i])
-		i=i+1
+		i+=1
 
     def tree_equality(self,tree):
 	for i in range(len(self.children)):
