@@ -1,5 +1,4 @@
 from Trees import Tree
-from sage.all import Partitions
 
 " Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)"
 
@@ -89,10 +88,8 @@ def next_tree(T):
 		"find the existing partition that is induced by pivot"
 		partition=[]
 		for i in pivot[0].children:
-			partition.append(i.name)
-		B = sorted([p[::-1] for p in Partitions(sum(partition))])[:-1]
-		b = B[B.index(partition)+1 ] # finds the next partition induced by the subtree pivot[0]
-		#b=next_partition(partition) 
+			partition.append(i.name) 
+		b=next_partition(partition) # finds the next partition induced by the subtree pivot[0]
 		rebuild_node(pivot[0],b) # changes the subtree "pivot[0]"
 		x=pivot[0]
 		while True:
