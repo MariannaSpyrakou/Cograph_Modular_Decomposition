@@ -1,29 +1,34 @@
 Modular Decomposition of co-graphs
 
-example_1.py
+example.py
 
-    input: the below co-tree 
-  
-    output: the updated co-tree when adding node x, adjacent to a,d,e,f
+    --> Input option #1: a sage graph (co-graph)
     
+        Output: Its modular decomposition tree (co-tree)
 
-                       (1)                                       (1)
-                      /   \                                     /   \
-                   (0)    (0)              -->               (0)     (0)
-                   / \    / | \          output:             / \    / | \
-                 (1)  c   d  e  f                         (1)   c  d  e  f 
-                 / \                                      / \
-                a   b                                    a  (0)
-                                                            / \
-                                                           b   x
+                           (1)
+                          /   \
+                       (0)     (0)
+                       / \    / | \
+                    (1)   c  d  e  f 
+                   / \
+                  a  (0)
+                     / \
+                    b   x
                                                            
+          (1): series nodes 
+          (0): parallel nodes
+      
+      --> Input option #2: a nested list with nodes and their adjacent nodes ([nodes, neighbors])
+       
+      --> Using cograph generator compute all cotrees with n nodes and check that the function cograph_modular_decomposition              computed it correctly
 
-main_example.py
-
-      --full construction of the above co-tree, given the initial cograph (in two representations: 1.sage graph 2.nested list)
 
 
-create_cotree.py
+      
+
+
+Cograph_modular_decomposition.py
 
       -- Function that given a co-graph, computes its co-tree by adding one-by-one its vertices
       -- Input options:
@@ -32,16 +37,16 @@ create_cotree.py
             2) A list with the nodes and a nested list with their "eliminated neighbors", meaning that a node can have as 
                neighbors only the nodes that are adjacent and precede in the given order (see main example)
                
-       -- Functions: has_no_p4_path() and has_no_p4_path_2()
+       -- Cograph_recognition.py: Functions: is_cograph(), has_no_p4_path() and has_no_p4_path_2()
             check if in any subgraph of 4 vertices there is a path. If so, the graph is not a co-graph, otherwise it is a cograph.
             
-       -- Function cograph_generator: generates all cographs with n nodes (doesn't work properly for 8,9,.. nodes)
+     
        
        
-create_cograph.py
+Cograph_generator.py
 
 
-       -- Creates all graphs with n nodes, and checks which of them are co-graphs
+       -- Creates all co-graphs with n nodes
 
 
 Trees.py
