@@ -180,3 +180,43 @@ def change_label(tree,status,counter):
 	for child in tree.children:
 		if child!=None: 
 			change_label(child,status+1,counter)
+
+def tree_to_graph(tree,g):
+	"""
+	Given a cotree, find its corresponding cograph
+	"""
+	for child in tree.children:
+            tree_to_graph(child,g)
+        if tree.name!='1' and tree.name!='0':
+		tree.info='v'
+		find_neighbors(tree,g)
+		tree.reset_info()
+        return	
+
+	
+def find_neighbors(tree,g):
+	"""
+	Given the node "tree", find its adjacent nodes
+	"""
+	ancestor=tree.parent
+	ancestor.info='v'
+	while ancestor!=None:
+		if ancestor.name=='1':
+			for sibling in ancestor.children:
+				if sibling!=tree and sibling.info!='v':
+					add_neighbor(tree,sibling,g)
+		elif ancestor.name=='0':
+			ancestor.info='v'
+		ancestor=ancestor.parent
+		
+			
+
+def add_neighbor(tree,neighbor,g):
+	"""
+	Given two adjacent nodes "tree" and "neighbor", create their connecting edge in the graph
+	"""
+	if neighbor.name!='0' and neighbor.name!='1':
+		g.add_edge(tree.name,neighbor.name)
+	else:
+		for child in neighbor.children:
+			add_neighbor(tree,child,g)
