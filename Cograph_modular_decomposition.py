@@ -78,37 +78,3 @@ def create_cotree_2(inp):
 				# initialize tree info for the next iteration
 				cotree.reset_info()
 	return cotree
-
-
-
-
-def tree_to_graph(tree,g):
-	for child in tree.children:
-            tree_to_graph(child,g)
-        if tree.name!='1' and tree.name!='0':
-		tree.info='v'
-		find_neighbors(tree,g)
-		tree.reset_info()
-        return	
-
-	
-def find_neighbors(tree,g):
-	ancestor=tree.parent
-	ancestor.info='v'
-	while ancestor!=None:
-		if ancestor.name=='1':
-			for sibling in ancestor.children:
-				if sibling!=tree and sibling.info!='v':
-					add_sibling(tree,sibling,g)
-		elif ancestor.name=='0':
-			ancestor.info='v'
-		ancestor=ancestor.parent
-		
-			
-
-def add_sibling(tree,sibling,g):
-	if sibling.name!='0' and sibling.name!='1':
-		g.add_edge(tree.name,sibling.name)
-	else:
-		for child in sibling.children:
-			add_sibling(tree,child,g)
