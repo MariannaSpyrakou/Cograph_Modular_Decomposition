@@ -8,7 +8,8 @@
 
 My name is Maria Ioanna Spyrakou and I have been working on modular decomposition of cographs and digraphs for SageMath in Google summer of code 2017. 
 
-<ul> As part of the project, I implemented in python code for:
+As part of the project, I implemented in python code for:
+<ul> 
   <li> modular decomposition of cographs, according to [1],[2],  </li>
   <li> a cograph generator, according to [3], and </li>
   <li>modular decomposition of digraphs according to [4],[5]. </li>
@@ -78,7 +79,7 @@ Modular Decomposition, Computer Science Review Volume 4, Issue 1, Pages 41-59, F
 <br>
 
 
-## Appendix: Code Description
+## Appendix: Modules Description
 
 
 #### example.py
