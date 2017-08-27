@@ -28,7 +28,9 @@ In this project we introduce the first open-source implementation of modular dec
 
 Cographs (or totally decomposable graphs) are defined as the class of graphs formed from a single vertex under the closure of the operations of union and complement [1]. Equivalently cographs are the P4-free graphs, that is the graphs that have no induced path on 4 vertices. 
 Every cograph has unique modular decomposition and  is defined by the properties of its modular decomposition. As a result, each internal node of the cotree (i.e. modular decomposition tree of a cograph) corresponds either to union or join of subgraphs defined by the children of that node. Those nodes will be called series (node label: '1') or parallel (node label '0') respectively. 
+
 <br>
+
 ### Python implementation:
 
 Given a graph in sage structure or an adjacency list of the graph, returns the modular decomposition tree (cotree), if the input graph is cograph. 
@@ -40,6 +42,7 @@ Given a graph in sage structure or an adjacency list of the graph, returns the m
 </ul>
 
 For the correctness of the code, the code was tested on all cographs with n=3,....,16 nodes as follows.
+
 <br>
 
 ### Cograph generator:
@@ -115,7 +118,7 @@ Modular Decomposition, Computer Science Review Volume 4, Issue 1, Pages 41-59, F
       
             1) A sage graph / python dictionary with nodes and ALL their neighbors
             2) A list with the nodes and a nested list with their "eliminated neighbors", meaning that a node can have as 
-               neighbors only the nodes that are adjacent and precede in the given order (see main example)
+               neighbors only the nodes that are adjacent and precede in the given order (see example)
                
 #### Cograph_recognition.py: 
 
