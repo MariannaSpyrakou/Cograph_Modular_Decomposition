@@ -1,4 +1,4 @@
-Modular Decomposition of co-graphs
+##Modular Decomposition of co-graphs
 
 example.py
 
