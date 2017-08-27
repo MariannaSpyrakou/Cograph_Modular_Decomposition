@@ -1,58 +1,67 @@
 # Modular Decomposition of graphs and digraphs
 
-GSoC 2017,  SageMath
+### GSoC 2017,  SageMath
 
-Mentors: Dima Pasechnik, David Coudert
+### Mentors: Dima Pasechnik, David Coudert
 
+<br>
 
 My name is Maria Ioanna Spyrakou and I have been working on modular decomposition of cographs and digraphs for SageMath in Google summer of code 2017. 
-As part of the project, I implemented in python code for:
-modular decomposition of cographs, according to [1],[2], 
-a cograph generator, according to [3], and 
-modular decomposition of digraphs according to [4],[5]. 
 
-
+<ul> As part of the project, I implemented in python code for:
+  <li> modular decomposition of cographs, according to [1],[2],  </li>
+  <li> a cograph generator, according to [3], and </li>
+  <li>modular decomposition of digraphs according to [4],[5]. </li>
+</ul>  
+     
+<br>     
+     
+## About Modular Decomposition
 Modular decomposition of a graph is a decomposition into subsets of vertices, called modules, such that every vertex of the module has uniform relationship with any other vertex outside the module. Modular decomposition of a graph can be represented as a rooted tree, where the leaves correspond to vertices and the internal nodes (more precisely: the subgraph defined by the children of each internal node) correspond to the strong modules (i.e. the modules that do not overlap any other module). The importance of modular decomposition is that it represents all possible ways to decompose a graph into quotients and factors and some of its applications include: transitive orientation, weighted maximum clique, coloring, graph drawing and in many combinatorial optimization problems. 
 
 In this project we introduce the first open-source implementation of modular decomposition of co-graphs as well as the first open-source Python implementation of modular decomposition of digraphs. 
 
+<br>
 
 ## Modular Decomposition of Cographs:
 
 Cographs (or totally decomposable graphs) are defined as the class of graphs formed from a single vertex under the closure of the operations of union and complement [1]. Equivalently cographs are the P4-free graphs, that is the graphs that have no induced path on 4 vertices. 
-Every cograph has unique modular decomposition and  is defined by the properties of its modular decomposition. As a result, in the cotree (i.e. modular decomposition tree of a cograph) each internal node corresponds either to union or join of subgraphs defined by the children of that node.
-
+Every cograph has unique modular decomposition and  is defined by the properties of its modular decomposition. As a result, each internal node of the cotree (i.e. modular decomposition tree of a cograph) corresponds either to union or join of subgraphs defined by the children of that node. Those nodes will be called series (node label: '1') or parallel (node label '0') respectively. 
+<br>
 ### Python implementation:
-Github: https://github.com/MariannaSpyrakou/Cograph_Modular_Decomposition
 
 Given a graph in sage structure or an adjacency list of the graph, returns the modular decomposition tree (cotree), if the input graph is cograph. 
 
-Functions included:
-Cograph_recognition: Contains 3 functions that test if the input graph is a cograph, by searching if there is a P4 path on any induced subgraph on 4 vertices.
-Cograph_modular_decomposition: if the input graph is a cograph, then construct its cotree by adding incrementally one by one its nodes. When all nodes are added the modular decomposition tree is returned. 
+#### Functions included:
+<ul>
+    <li> Cograph_recognition: Contains 3 functions that test if the input graph is a cograph, by searching if there is a P4 path on any induced subgraph on 4 vertices.  </li>
+    <li> Cograph_modular_decomposition: if the input graph is a cograph, then construct its cotree by adding incrementally one by one its nodes. When all nodes are added the modular decomposition tree is returned. </li>
+</ul>
 
 For the correctness of the code, the code was tested on all cographs with n=3,....,16 nodes as follows.
+<br>
 
-Cograph generator:
+### Cograph generator:
 Given the number of nodes n, generates all cotrees that correspond to all cographs with n nodes. 
-
+<ul>
 The example includes the testing of the modular decomposition code: 
-Generate all cotrees with n=3,..,16 nodes, using the cograph_generator.
-Find their corresponding cographs.
-Run the modular decomposition code for each cograph and test if the output matches the initial cotree. 
+<li>Generate all cotrees with n=3,..,16 nodes, using the cograph_generator.</li>
+<li>Find their corresponding cographs.</li>
+<li>Run the modular decomposition code for each cograph and test if the output matches the initial cotree. </li>
+</ul>
 
+<br>
 
-Modular Decomposition of Digraphs: 
-
-paragraph
+## Modular Decomposition of Digraphs: 
 
 Python implementation:
 Github: https://github.com/MariannaSpyrakou/Digraphs_modular_decomposition
 
 Given a digraph in sage structure, returns the modular decomposition tree. 
 
+<br>
 
-References:
+## References:
 
 [1] D. G. Corneil, Y. Perl, L. K. Stewart, A linear recognition algorithm for cographs, SIAM Journal on Computing, Vol. 14, No. 4 : pp. 926-934, 1985
 
@@ -66,13 +75,13 @@ Modular Decomposition, Computer Science Review Volume 4, Issue 1, Pages 41-59, F
 [5] C. Capelle, M. Habib, F. de Montgolfier. Graph Decompositions and Factorizing Permutations. Discrete Mathematics and Theoretical Computer Sciences 5, 2002
 
 
+<br>
 
 
+## Appendix: Code Description
 
 
-
-
-example.py
+#### example.py
 
     --> Input option #1: a sage graph (co-graph)
     
@@ -97,10 +106,8 @@ example.py
 
 
 
-      
 
-
-Cograph_modular_decomposition.py
+#### Cograph_modular_decomposition.py
 
       -- Function that given a co-graph, computes its co-tree by adding one-by-one its vertices
       -- Input options:
@@ -109,19 +116,19 @@ Cograph_modular_decomposition.py
             2) A list with the nodes and a nested list with their "eliminated neighbors", meaning that a node can have as 
                neighbors only the nodes that are adjacent and precede in the given order (see main example)
                
-       -- Cograph_recognition.py: Functions: is_cograph(), has_no_p4_path() and has_no_p4_path_2()
+#### Cograph_recognition.py: 
+
+    -- Functions: is_cograph(), has_no_p4_path() and has_no_p4_path_2()
             check if in any subgraph of 4 vertices there is a path. If so, the graph is not a co-graph, otherwise it is a cograph.
             
-     
-       
-       
-Cograph_generator.py
+      
+#### Cograph_generator.py
 
 
        -- Creates all co-graphs with n nodes
 
 
-Trees.py
+#### Trees.py
 
 
   -- Tree constructor
