@@ -1,4 +1,76 @@
-##Modular Decomposition of co-graphs
+# Modular Decomposition of graphs and digraphs
+
+GSoC 2017,  SageMath
+
+Mentors: Dima Pasechnik, David Coudert
+
+
+My name is Maria Ioanna Spyrakou and I have been working on modular decomposition of cographs and digraphs for SageMath in Google summer of code 2017. 
+As part of the project, I implemented in python code for:
+modular decomposition of cographs, according to [1],[2], 
+a cograph generator, according to [3], and 
+modular decomposition of digraphs according to [4],[5]. 
+
+
+Modular decomposition of a graph is a decomposition into subsets of vertices, called modules, such that every vertex of the module has uniform relationship with any other vertex outside the module. Modular decomposition of a graph can be represented as a rooted tree, where the leaves correspond to vertices and the internal nodes (more precisely: the subgraph defined by the children of each internal node) correspond to the strong modules (i.e. the modules that do not overlap any other module). The importance of modular decomposition is that it represents all possible ways to decompose a graph into quotients and factors and some of its applications include: transitive orientation, weighted maximum clique, coloring, graph drawing and in many combinatorial optimization problems. 
+
+In this project we introduce the first open-source implementation of modular decomposition of co-graphs as well as the first open-source Python implementation of modular decomposition of digraphs. 
+
+
+## Modular Decomposition of Cographs:
+
+Cographs (or totally decomposable graphs) are defined as the class of graphs formed from a single vertex under the closure of the operations of union and complement [1]. Equivalently cographs are the P4-free graphs, that is the graphs that have no induced path on 4 vertices. 
+Every cograph has unique modular decomposition and  is defined by the properties of its modular decomposition. As a result, in the cotree (i.e. modular decomposition tree of a cograph) each internal node corresponds either to union or join of subgraphs defined by the children of that node.
+
+### Python implementation:
+Github: https://github.com/MariannaSpyrakou/Cograph_Modular_Decomposition
+
+Given a graph in sage structure or an adjacency list of the graph, returns the modular decomposition tree (cotree), if the input graph is cograph. 
+
+Functions included:
+Cograph_recognition: Contains 3 functions that test if the input graph is a cograph, by searching if there is a P4 path on any induced subgraph on 4 vertices.
+Cograph_modular_decomposition: if the input graph is a cograph, then construct its cotree by adding incrementally one by one its nodes. When all nodes are added the modular decomposition tree is returned. 
+
+For the correctness of the code, the code was tested on all cographs with n=3,....,16 nodes as follows.
+
+Cograph generator:
+Given the number of nodes n, generates all cotrees that correspond to all cographs with n nodes. 
+
+The example includes the testing of the modular decomposition code: 
+Generate all cotrees with n=3,..,16 nodes, using the cograph_generator.
+Find their corresponding cographs.
+Run the modular decomposition code for each cograph and test if the output matches the initial cotree. 
+
+
+Modular Decomposition of Digraphs: 
+
+paragraph
+
+Python implementation:
+Github: https://github.com/MariannaSpyrakou/Digraphs_modular_decomposition
+
+Given a digraph in sage structure, returns the modular decomposition tree. 
+
+
+References:
+
+[1] D. G. Corneil, Y. Perl, L. K. Stewart, A linear recognition algorithm for cographs, SIAM Journal on Computing, Vol. 14, No. 4 : pp. 926-934, 1985
+
+[2] M. Habib, C. Paul, A Survey on Algorithmic Aspects of
+Modular Decomposition, Computer Science Review Volume 4, Issue 1, Pages 41-59, February 2010
+
+[3] Á. A. Jones, F. Protti, R. R. Del-Vecchio, Cograph generation with linear delay, arXiv:1612.05827v1, 2016
+
+[4] R. M. McConnell, F. de Montgolfier. Linear-time modular decomposition of directed graphs, Discrete Applied Mathematics, Volume 145, Issue 2, 2005
+
+[5] C. Capelle, M. Habib, F. de Montgolfier. Graph Decompositions and Factorizing Permutations. Discrete Mathematics and Theoretical Computer Sciences 5, 2002
+
+
+
+
+
+
+
 
 example.py
 
