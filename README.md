@@ -18,7 +18,7 @@ As part of the project, I implemented in python code for:
 <br>     
      
 ## About Modular Decomposition
-Modular decomposition of a graph is a decomposition into subsets of vertices, called modules, such that every vertex of the module has uniform relationship with every other vertex outside the module. Modular decomposition of a graph can be represented as a rooted tree, where the leaves correspond to vertices and the internal nodes (more precisely: the subgraph defined by the children of each internal node) correspond to the strong modules (i.e. the modules that do not overlap any other module). The importance of modular decomposition is that it represents all possible ways to decompose a graph into quotients and factors and some of its applications include: transitive orientation, weighted maximum clique, coloring, graph drawing and in many combinatorial optimization problems. 
+Modular decomposition represents all possible ways to decompose a graph into quotients and factors. Moreover, it is very useful tool and some of its applications include: transitive orientation, weighted maximum clique, coloring, graph drawing and many combinatorial optimization problems. Modular decomposition of a graph is a decomposition into subsets of vertices, called modules, such that every vertex of the module has uniform relationship with every other vertex outside the module. Additionally, modular decomposition of a graph can be represented as a rooted tree, where the leaves correspond to vertices and the internal nodes (more accurately: the subgraph defined by the children of each internal node) correspond to the strong modules (i.e. the modules that do not overlap any other module).  
 
 In this project we introduce the first open-source implementation of modular decomposition of co-graphs as well as the first open-source Python implementation of modular decomposition of digraphs. 
 
@@ -27,7 +27,7 @@ In this project we introduce the first open-source implementation of modular dec
 ## Modular Decomposition of Cographs:
 
 Cographs (or totally decomposable graphs) are defined as the class of graphs formed from a single vertex under the closure of the operations of union and complement [1]. Equivalently cographs are the P4-free graphs, that is the graphs that have no induced path on 4 vertices. 
-Every cograph has unique modular decomposition and  is defined by the properties of its modular decomposition. As a result, each internal node of the cotree (i.e. modular decomposition tree of a cograph) corresponds either to union or join of subgraphs defined by the children of that node. Those nodes will be called series (node label: '1') or parallel (node label '0') respectively. 
+Every cograph has unique modular decomposition and  is defined by the properties of its modular decomposition. As a result, each internal node of the cotree (i.e. modular decomposition tree of a cograph) corresponds either to union or join of subgraphs defined by the children of that node. Those nodes will be called series (node label: '1') or parallel (node label: '0') respectively. 
 
 <br>
 
@@ -58,10 +58,22 @@ The example includes the testing of the modular decomposition code:
 
 ## Modular Decomposition of Digraphs: 
 
-Python implementation:
+In the general case of directed graphs, modular decomposition is not necessarily unique. The internal nodes of modular decomposition tree can be labeled as one of the following: 
+<ul>
+<li>series, if the subgraph defined by the children of that node is a clique </li>
+<li>parallel, if its subgraph defined by the children of that node  is a stable set </li>
+<li>order, if its subgraph defined by the children of that node is a total ordering </li>
+<li>prime, otherwise </li>
+</ul>
+
+<br>
+
+### Python implementation:
 Github: https://github.com/MariannaSpyrakou/Digraphs_modular_decomposition
 
-Given a digraph in sage structure, returns the modular decomposition tree. 
+Given a digraph in sage structure, returns the modular decomposition tree.
+
+I haven’t fully completed the code, but I am working on it and I will have a working implementation as soon as possible. The part of the code that is completed contains the modular decomposition of a directed graph, given a factorized permutation ([5]), as long as a part of finding the factorized permutation. So, I am still working on finishing the rest of the code of the modular decomposition algorithm and I still need to create a function that tests if the modular decomposition is computed correctly and finally to test the code on a large sample of directed graphs. 
 
 <br>
 
