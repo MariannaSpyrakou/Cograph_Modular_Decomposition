@@ -1,4 +1,5 @@
 from Trees import Tree
+from sage.all import Graph
 
 " Cograph Generation with linear delay (A. Jones, F. Protti, R. Vecchio)"
 
@@ -180,18 +181,28 @@ def change_label(tree,status,counter):
 	for child in tree.children:
 		if child!=None: 
 			change_label(child,status+1,counter)
-
-def tree_to_graph(tree,g):
+			
+			
+def tree_to_graph(tree):
 	"""
-	Given a cotree, find its corresponding cograph
+	returns the corresponding cograph of the tree
+	"""
+	g=Graph()
+	tree_to_graph_rec(tree,g)
+	return g
+
+def tree_to_graph_rec(tree,g):
+	"""
+	Create the co_graph by adding recursively one by one its vertices and edges
 	"""
 	for child in tree.children:
-            tree_to_graph(child,g)
+            tree_to_graph_rec(child,g)
         if tree.name!='1' and tree.name!='0':
 		tree.info='v'
+		g.add_vertex(tree.name)
 		find_neighbors(tree,g)
-		tree.reset_info()
-        return	
+		tree.reset_info()	
+
 
 	
 def find_neighbors(tree,g):
@@ -219,4 +230,4 @@ def add_neighbor(tree,neighbor,g):
 		g.add_edge(tree.name,neighbor.name)
 	else:
 		for child in neighbor.children:
-			add_neighbor(tree,child,g)
+add_neighbor(tree,child,g)
